@@ -4,7 +4,8 @@ $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
 $config = [
-    'id' => 'learn-arabic',
+    'id' => 'basic',
+    'name'=>'Learn Arabic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
@@ -12,6 +13,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '55ASDKWASFJWT62D5G9D3ASWFE965255',
         ],
+        'user' => [
+            'identityClass' => 'app\models\Admin',
+            'enableAutoLogin' => true,
+            ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -51,9 +56,14 @@ $config = [
         ],
     ],
     'modules' => [
-        'user' => [
-            'class' => 'dektrium\user\Module',
-        ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+            // enter optional module parameters below - only if you need to
+            // use your own export download action or custom translation
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
+        ]
     ],
     'params' => $params,
 ];
@@ -72,6 +82,14 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'generators' => [ //here
+            'crud' => [
+                'class' => 'yii\gii\generators\crud\Generator',
+                'templates' => [
+                    'adminlte' => '@vendor/dmstr/yii2-adminlte-asset/gii/templates/crud/simple',
+                ]
+            ]
+        ],
     ];
 }
 

@@ -5,17 +5,6 @@ use yii\helpers\Html;
 /* @var $content string */
 
 
-if (Yii::$app->controller->action->id === 'login') { 
-/**
- * Do not use this code in your template. Remove it. 
- * Instead, use the code  $this->layout = '//main-login'; in your controller.
- */
-    echo $this->render(
-        'main-login',
-        ['content' => $content]
-    );
-} else {
-
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);
     } else {
@@ -33,7 +22,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?= Html::encode(Yii::$app->name) ?></title>
         <?php $this->head() ?>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -62,4 +51,4 @@ if (Yii::$app->controller->action->id === 'login') {
     </body>
     </html>
     <?php $this->endPage() ?>
-<?php } ?>
+

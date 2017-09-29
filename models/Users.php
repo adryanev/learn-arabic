@@ -3,24 +3,28 @@
 namespace app\models;
 
 use Yii;
+use Yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
-use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "admin".
+ * This is the model class for table "users".
  *
- * @property integer $idAdmin
+ * @property integer $idUser
  * @property string $username
  * @property string $nama
  * @property string $email
- * @property string $password
  * @property string $authKey
  * @property string $accessToken
+ * @property string $password
+ * @property string $tanggalLahir
  * @property integer $status
- * @property string $createdAt
- * @property string $updatedAt
+ * @property integer $createdAt
+ * @property integer $updatedAt
+ *
+ * @property Ujian[] $ujians
  */
-class Admin extends \yii\db\ActiveRecord implements IdentityInterface
+class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
 
     const STATUS_ACTIVE = 10;
@@ -30,9 +34,15 @@ class Admin extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return 'admin';
+        return 'users';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -51,22 +61,41 @@ class Admin extends \yii\db\ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'idAdmin' => 'Id Admin',
+            'idUser' => 'Id User',
             'username' => 'Username',
             'nama' => 'Nama',
             'email' => 'Email',
-            'password' => 'Password',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
+            'password' => 'Password',
+            'tanggalLahir' => 'Tanggal Lahir',
             'status' => 'Status',
             'createdAt' => 'Created At',
             'updatedAt' => 'Updated At',
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUjians()
+    {
+        return $this->hasMany(Ujian::className(), ['idUser' => 'idUser']);
+    }
+
+    public static function findByUsername($username){
+        return static::findOne(['username'=>$username, 'status' =>self::STATUS_ACTIVE]);
+    }
+    /**
+     * Finds an identity by the given ID.
+     * @param string|int $id the ID to be looked for
+     * @return IdentityInterface the identity object that matches the given ID.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
+     */
     public static function findIdentity($id)
     {
-        return static::findOne(['idAdmin' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -150,13 +179,4 @@ class Admin extends \yii\db\ActiveRecord implements IdentityInterface
         $this->authKey = Yii::$app->security->generateRandomString();
     }
 
-    public function generateAccessToken(){
-        $this->accessToken = Yii::$app->security->generateRandomString($length = 255);
-    }
-
-
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
 }
