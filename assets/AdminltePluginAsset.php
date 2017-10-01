@@ -16,12 +16,23 @@ class AdminltePluginAsset extends AssetBundle
 
     public $sourcePath = '@vendor/almasaeed2010/adminlte/plugins';
     public $js = [
+        'chartjs/Chart.js',
         'datatables/dataTables.bootstrap.min.js',
-        // more plugin Js here
+        'bootstrap-slider/bootstrap-slider.js',
+        'datepicker/bootstrap-datepicker.js',
+        'fastclick/fastclick.js',
+        'jQuery/jquery-2.2.3.min.js',
+        'jQueryUI/jquery-ui.js',
+        'timepicker/bootstrap-timepicker.js',
+        'iCheck/icheck.js',
     ];
     public $css = [
+        'bootstrap-slider/slider.css',
         'datatables/dataTables.bootstrap.css',
-        // more plugin CSS here
+        'datepicker/datepicker3.css',
+        'timepicker/bootstrap-timepicker.css',
+        'iCheck/all.css',
+
     ];
     public $depends = [
         'dmstr\web\AdminLteAsset',

@@ -1,3 +1,8 @@
+<?php
+$model = Yii::$app->user->getId();
+$user = \app\models\Admin::findOne(['idAdmin'=>$model]);
+$nama = $user->getNama();
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -8,7 +13,7 @@
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Administrator</p>
+                <p><?=$nama; ?></p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>

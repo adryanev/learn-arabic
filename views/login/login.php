@@ -49,10 +49,13 @@ $fieldOptions2 = [
             </div>
             <!-- /.col -->
         </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>Belum punya akun? <a href="http://localhost/learn-arabic/web/signup">Daftar di sini</a></p>
+            </div>
+        </div>
 
 
         <?php ActiveForm::end(); ?>
 
-    </div>
-    <!-- /.login-box-body -->
 </div><!-- /.login-box -->

@@ -159,4 +159,8 @@ class Admin extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
+
+    public function getNama(){
+        return $this->nama;
+    }
 }

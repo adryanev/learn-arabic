@@ -16,8 +16,7 @@ use yii\web\Controller;
 
 class SignupController extends Controller
 {
-
-    /*
+/*
     public function behaviors()
     {
         return[
@@ -40,7 +39,7 @@ class SignupController extends Controller
         ];
     }
 
-    */
+*/
     /**
      * @inheritdoc
      */
@@ -73,19 +72,5 @@ class SignupController extends Controller
         }
 
         return $this->render('/signup/signup',['model'=>$model]);
-    }
-
-    public function actionSignup(){
-
-        if(Yii::$app->user->isGuest){
-            return $this->goHome();
-        }
-        $model = new SignupForm();
-        if($model->load(Yii::$app->request->post()) && $model->signup()){return $this->goBack();
-        }
-        return $this->render('/signup/signup',[
-            'model'=>$model
-        ]);
-
     }
 }

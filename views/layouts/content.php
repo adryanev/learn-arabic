@@ -21,16 +21,17 @@ use dmstr\widgets\Alert;
             </h1>
         <?php } ?>
 
+
+    </section>
+
+    <section class="content">
+        <?= Alert::widget() ?>
         <?=
         Breadcrumbs::widget(
             [
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]
         ) ?>
-    </section>
-
-    <section class="content">
-        <?= Alert::widget() ?>
         <?= $content ?>
     </section>
 </div>
@@ -39,6 +40,6 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0
     </div>
-    <strong>Adryan Eka Vandra<a href="http://localhost/learn-arabic/web">Arabic Learning</a>.</strong> All rights
+    <strong>Adryan Eka Vandra - <a href="http://localhost/learn-arabic/web">Arabic Learning</a>.</strong> All rights
     reserved.
 </footer>

@@ -8,6 +8,7 @@ $config = [
     'name'=>'Learn Arabic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'timezone'=>'Asia/Jakarta',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -63,6 +64,15 @@ $config = [
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
+        ],
+        'datecontrol' => [
+            'class' => '\kartik\datecontrol\Module',
+            // see settings on http://demos.krajee.com/datecontrol#module
+        ],
+        // If you use tree table
+        'treemanager' =>  [
+            'class' => '\kartik\tree\Module',
+            // see settings on http://demos.krajee.com/tree-manager#module
         ]
     ],
     'params' => $params,

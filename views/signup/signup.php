@@ -65,6 +65,12 @@ $fieldPassword = [
             </div>
                 <!-- /.col -->
             </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>Sudah punya akun? <a href="../web">Login di sini</a>.</p>
+            </div>
+        </div>
+
 
         <?php ActiveForm::end(); ?>
 </div>
