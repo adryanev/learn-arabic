@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Admin;
+use app\models\MateriDetail;
 
 /**
- * AdminSearch represents the model behind the search form of `app\models\Admin`.
+ * MateriDetailSearch represents the model behind the search form of `app\models\MateriDetail`.
  */
-class AdminSearch extends Admin
+class MateriDetailSearch extends MateriDetail
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['idAdmin', 'status'], 'integer'],
-            [['username', 'nama', 'email', 'password', 'authKey', 'accessToken', 'createdAt', 'updatedAt'], 'safe'],
+            [['idMateriDetail', 'idMateri'], 'integer'],
+            [['isi', 'gambar', 'terjemahan'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AdminSearch extends Admin
      */
     public function search($params)
     {
-        $query = Admin::find();
+        $query = MateriDetail::find();
 
         // add conditions that should always apply here
 
@@ -58,18 +58,13 @@ class AdminSearch extends Admin
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idAdmin' => $this->idAdmin,
-            'status' => $this->status,
-            'createdAt' => $this->createdAt,
-            'updatedAt' => $this->updatedAt,
+            'idMateriDetail' => $this->idMateriDetail,
+            'idMateri' => $this->idMateri,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'accessToken', $this->accessToken]);
+        $query->andFilterWhere(['like', 'isi', $this->isi])
+            ->andFilterWhere(['like', 'gambar', $this->gambar])
+            ->andFilterWhere(['like', 'terjemahan', $this->terjemahan]);
 
         return $dataProvider;
     }

@@ -1,13 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use fedemotta\datatables\DataTables;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Admins';
+$this->title = 'Admin';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-index box box-primary">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-body table-responsive">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= GridView::widget([
+        <?= DataTables::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
