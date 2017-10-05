@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Admin;
+use app\models\Soal;
 
 /**
- * AdminSearch represents the model behind the search form of `app\models\Admin`.
+ * SoalSearch represents the model behind the search form of `app\models\Soal`.
  */
-class AdminSearch extends Admin
+class SoalSearch extends Soal
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['idAdmin', 'status'], 'integer'],
-            [['username', 'nama', 'email', 'password', 'authKey', 'accessToken', 'createdAt', 'updatedAt'], 'safe'],
+            [['idSoal'], 'integer'],
+            [['soal', 'a', 'b', 'c', 'd', 'jawaban'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AdminSearch extends Admin
      */
     public function search($params)
     {
-        $query = Admin::find();
+        $query = Soal::find();
 
         // add conditions that should always apply here
 
@@ -58,18 +58,15 @@ class AdminSearch extends Admin
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idAdmin' => $this->idAdmin,
-            'status' => $this->status,
-            'createdAt' => $this->createdAt,
-            'updatedAt' => $this->updatedAt,
+            'idSoal' => $this->idSoal,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'accessToken', $this->accessToken]);
+        $query->andFilterWhere(['like', 'soal', $this->soal])
+            ->andFilterWhere(['like', 'a', $this->a])
+            ->andFilterWhere(['like', 'b', $this->b])
+            ->andFilterWhere(['like', 'c', $this->c])
+            ->andFilterWhere(['like', 'd', $this->d])
+            ->andFilterWhere(['like', 'jawaban', $this->jawaban]);
 
         return $dataProvider;
     }

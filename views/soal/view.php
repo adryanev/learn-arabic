@@ -4,16 +4,16 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Materi */
+/* @var $model app\models\Soal */
 
-$this->title = $model->idMateri;
-$this->params['breadcrumbs'][] = ['label' => 'Materi', 'url' => ['index']];
+$this->title = $model->idSoal;
+$this->params['breadcrumbs'][] = ['label' => 'Soal', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="materi-view box box-primary">
+<div class="soal-view box box-primary">
     <div class="box-header">
-        <?= Html::a('Update', ['update', 'id' => $model->idMateri], ['class' => 'btn btn-primary btn-flat']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idMateri], [
+        <?= Html::a('Update', ['update', 'id' => $model->idSoal], ['class' => 'btn btn-primary btn-flat']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->idSoal], [
             'class' => 'btn btn-danger btn-flat',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -25,9 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'idMateri',
-                'namaMateri',
-                'idKategori',
+                'idSoal',
+                'soal',
+                'a',
+                'b',
+                'c',
+                'd',
+                'jawaban',
             ],
         ]) ?>
     </div>

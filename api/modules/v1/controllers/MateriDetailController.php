@@ -8,10 +8,25 @@
 
 namespace app\api\modules\v1\controllers;
 
-use yii\rest\ActiveController;
+use app\models\MateriDetail;
+use yii\rest\Controller;
 
-class MateriDetailController extends ActiveController
+class MateriDetailController extends Controller
 {
 
-    public $modelClass = 'app\models\MateriDetail';
+
+    public function actionDetail($idMateri){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $response = MateriDetail::find()->where(['idMateri'=>$idMateri])->all();
+
+        return $response;
+    }
+	
+	public function actionIndex(){
+		\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$response = MateriDetail::find()->all();
+		
+		return $response;
+	}
+
 }

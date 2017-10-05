@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MateriDetail;
-use app\models\MateriDetailSearch;
+use app\models\Soal;
+use app\models\SoalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MateriDetailController implements the CRUD actions for MateriDetail model.
+ * SoalController implements the CRUD actions for Soal model.
  */
-class MateriDetailController extends Controller
+class SoalController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Lists all MateriDetail models.
+     * Lists all Soal models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MateriDetailSearch();
+        $searchModel = new SoalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Displays a single MateriDetail model.
+     * Displays a single Soal model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Creates a new MateriDetail model.
+     * Creates a new Soal model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MateriDetail();
+        $model = new Soal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+            return $this->redirect(['view', 'id' => $model->idSoal]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Updates an existing MateriDetail model.
+     * Updates an existing Soal model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,7 +85,7 @@ class MateriDetailController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+            return $this->redirect(['view', 'id' => $model->idSoal]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Deletes an existing MateriDetail model.
+     * Deletes an existing Soal model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Finds the MateriDetail model based on its primary key value.
+     * Finds the Soal model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MateriDetail the loaded model
+     * @return Soal the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MateriDetail::findOne($id)) !== null) {
+        if (($model = Soal::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

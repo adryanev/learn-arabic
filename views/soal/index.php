@@ -4,15 +4,15 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MateriSearch */
+/* @var $searchModel app\models\SoalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Materi';
+$this->title = 'Soal';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="materi-index box box-primary">
+<div class="soal-index box box-primary">
     <div class="box-header with-border">
-        <?= Html::a('Create Materi', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('Create Soal', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
     </div>
     <div class="box-body table-responsive">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -23,9 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'idMateri',
-                'namaMateri',
-                'idKategori',
+                'idSoal',
+                'soal',
+                'a',
+                'b',
+                'c',
+                // 'd',
+                // 'jawaban',
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

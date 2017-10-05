@@ -16,6 +16,17 @@ $config = [
     'basePath' => dirname(__DIR__).'/..',
     'bootstrap' => ['log'],
     'components' => [
+        'response' => [
+            // ...
+            'formatters' => [
+                \yii\web\Response::FORMAT_JSON => [
+                    'class' => 'yii\web\JsonResponseFormatter',
+                    'prettyPrint' => YII_DEBUG, // use "pretty" output in debug mode
+                    'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+                    // ...
+                ],
+            ],
+        ],
         'request' => [
             // Enable JSON Input:
             'parsers' => [
@@ -36,10 +47,8 @@ $config = [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => ['v1/materi','v1/materi-detail']],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
@@ -56,6 +65,7 @@ $config = [
             'class' => 'app\api\modules\v1\Module',
         ],
     ],
+
     'params' => $params,
 ];
 

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Materi */
+/* @var $model app\models\Soal */
 
-$this->title = 'Create Materi';
-$this->params['breadcrumbs'][] = ['label' => 'Materi', 'url' => ['index']];
+$this->title = 'Create Soal';
+$this->params['breadcrumbs'][] = ['label' => 'Soal', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="materi-create">
+<div class="soal-create">
 
     <?= $this->render('_form', [
     'model' => $model,
