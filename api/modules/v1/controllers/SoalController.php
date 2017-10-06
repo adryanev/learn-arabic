@@ -17,7 +17,21 @@ class SoalController extends Controller
 
     public function actionIndex(){
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $response = Soal::find()->all();
+        $response = null;
+        if(\Yii::$app->request->isGet){
+            $response['master'] = Soal::find()->all();
+        }
         return $response;
+    }
+
+    public function actionLimit($by){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = new Soal();
+            $response = null;
+        if(\Yii::$app->request->isGet){
+            $response['master'] = $model->getSoalLimit($by);
+        }
+        return $response;
+
     }
 }

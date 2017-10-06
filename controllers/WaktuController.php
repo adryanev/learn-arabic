@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\MateriDetail;
-use app\models\MateriDetailSearch;
+use app\models\Waktu;
+use app\models\WaktuSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * MateriDetailController implements the CRUD actions for MateriDetail model.
+ * WaktuController implements the CRUD actions for Waktu model.
  */
-class MateriDetailController extends Controller
+class WaktuController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +30,12 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Lists all MateriDetail models.
+     * Lists all Waktu models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MateriDetailSearch();
+        $searchModel = new WaktuSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +45,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Displays a single MateriDetail model.
+     * Displays a single Waktu model.
      * @param integer $id
      * @return mixed
      */
@@ -58,21 +57,16 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Creates a new MateriDetail model.
+     * Creates a new Waktu model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MateriDetail();
+        $model = new Waktu();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->imageFile = UploadedFile::getInstance($model,'imageFile');
-            if($model->upload()){
-                $model->gambar = $model->imageFile->getBaseName().'.'.$model->imageFile->getExtension();
-                $model->save();
-            }
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idWaktu]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -81,7 +75,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Updates an existing MateriDetail model.
+     * Updates an existing Waktu model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +85,7 @@ class MateriDetailController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+            return $this->redirect(['view', 'id' => $model->idWaktu]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -100,7 +94,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Deletes an existing MateriDetail model.
+     * Deletes an existing Waktu model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +107,15 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Finds the MateriDetail model based on its primary key value.
+     * Finds the Waktu model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MateriDetail the loaded model
+     * @return Waktu the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MateriDetail::findOne($id)) !== null) {
+        if (($model = Waktu::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

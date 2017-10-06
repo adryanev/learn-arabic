@@ -17,6 +17,7 @@ use Yii;
  */
 class Soal extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -33,6 +34,7 @@ class Soal extends \yii\db\ActiveRecord
         return [
             [['soal', 'a', 'b', 'c', 'd', 'jawaban'], 'required'],
             [['soal'], 'string', 'max' => 100],
+            [['gambar'],'string','max'=>50],
             [['a', 'b', 'c', 'd'], 'string', 'max' => 50],
             [['jawaban'], 'string', 'max' => 1],
         ];
@@ -45,6 +47,7 @@ class Soal extends \yii\db\ActiveRecord
     {
         return [
             'idSoal' => 'Id Soal',
+            'gambar' =>'Gambar',
             'soal' => 'Soal',
             'a' => 'A',
             'b' => 'B',
@@ -53,4 +56,12 @@ class Soal extends \yii\db\ActiveRecord
             'jawaban' => 'Jawaban',
         ];
     }
+
+    public function getSoalLimit($by){
+
+        $soal = Soal::find()->limit($by)->all();
+
+        return $soal;
+    }
+
 }

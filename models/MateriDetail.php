@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
 /**
  * This is the model class for table "materi_detail".
  *
@@ -17,6 +17,10 @@ use Yii;
  */
 class MateriDetail extends \yii\db\ActiveRecord
 {
+    /**
+     * @var UploadedFile
+     */
+    public $imageFile;
     /**
      * @inheritdoc
      */
@@ -34,6 +38,7 @@ class MateriDetail extends \yii\db\ActiveRecord
             [['idMateri', 'isi', 'gambar', 'terjemahan'], 'required'],
             [['idMateri'], 'integer'],
             [['isi', 'terjemahan'], 'string'],
+            [['imageFile'], 'file', 'skipOnEmpty'=>false, 'extensions' => 'png, jpg'],
             [['gambar'], 'string', 'max' => 255],
             [['idMateri'], 'exist', 'skipOnError' => true, 'targetClass' => Materi::className(), 'targetAttribute' => ['idMateri' => 'idMateri']],
         ];
@@ -76,5 +81,13 @@ class MateriDetail extends \yii\db\ActiveRecord
      */
     public function getAllMateriDetail(){
         return MateriDetail::find()->all();
+    }
+    public function upload(){
+        if($this->validate()){
+            $this->imageFile->saveAs('uploads/images/'.$this->imageFile->baseName.'.'.$this->imageFile->extension);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
