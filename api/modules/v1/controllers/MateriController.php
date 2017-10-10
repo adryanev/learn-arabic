@@ -16,15 +16,22 @@ class MateriController extends Controller
 
     public function actionIndex(){
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $response['master'] = Materi::find()->all();
 
+        $response = null;
+
+        if(\Yii::$app->request->isGet){
+            $response['master'] = Materi::find()->all();
+        }
         return $response;
     }
-
+    
     public function actionDetail($idMateri){
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $response['master'] = Materi::find()->where(['idMateri'=>$idMateri])->all();
 
+        $response = null;
+        if(\Yii::$app->request->isGet){
+          $response['master'] = Materi::find()->where(['idMateri'=>$idMateri])->all();
+        }
         return $response;
     }
 }

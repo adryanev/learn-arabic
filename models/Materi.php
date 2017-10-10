@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "materi".
@@ -63,5 +64,17 @@ class Materi extends \yii\db\ActiveRecord
     public function getMateriDetails()
     {
         return $this->hasMany(MateriDetail::className(), ['idMateri' => 'idMateri']);
+    }
+
+    public function getMateriByKategori($idKategori){
+        $query = Materi::find();
+
+        $dataProvider = new ActiveDataProvider([
+           'query'=> $query
+        ]);
+
+        $query->andFilterWhere(['idKategori'=>$idKategori]);
+
+        return $dataProvider;
     }
 }

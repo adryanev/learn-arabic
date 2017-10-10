@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Materi;
 use app\models\MateriSearch;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -124,5 +125,14 @@ class MateriController extends Controller
 
     public function actionMateriDetail($id){
 
+    }
+
+    public function actionMateriKategori($idKategori){
+
+        $model = new Materi();
+
+        $dataProvider = $model->getMateriByKategori($idKategori);
+
+        return $this->render('materi-kategori',['dataProvider'=> $dataProvider]);
     }
 }

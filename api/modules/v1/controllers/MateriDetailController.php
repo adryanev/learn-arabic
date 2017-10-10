@@ -21,11 +21,11 @@ class MateriDetailController extends Controller
 
         return $response;
     }
-	
+
 	public function actionIndex(){
 		\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$response['master'] = MateriDetail::find()->all();
-		
+
 		return $response;
 	}
 

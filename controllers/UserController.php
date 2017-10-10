@@ -2,19 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\Materi;
 use Yii;
-use app\models\MateriDetail;
-use app\models\MateriDetailSearch;
+use app\models\User;
+use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * MateriDetailController implements the CRUD actions for MateriDetail model.
+ * UserController implements the CRUD actions for User model.
  */
-class MateriDetailController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,12 +30,12 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Lists all MateriDetail models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MateriDetailSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +45,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Displays a single MateriDetail model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      */
@@ -59,21 +57,16 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Creates a new MateriDetail model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new MateriDetail();
+        $model = new User();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->imageFile = UploadedFile::getInstance($model,'imageFile');
-            if($model->upload()){
-                $model->gambar = $model->imageFile->getBaseName().'.'.$model->imageFile->getExtension();
-                $model->save();
-            }
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idUser]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +75,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Updates an existing MateriDetail model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -92,7 +85,7 @@ class MateriDetailController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+            return $this->redirect(['view', 'id' => $model->idUser]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -101,7 +94,7 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Deletes an existing MateriDetail model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,27 +107,18 @@ class MateriDetailController extends Controller
     }
 
     /**
-     * Finds the MateriDetail model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return MateriDetail the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MateriDetail::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionDetail($idMateri){
-        $model = new MateriDetail();
-
-        $dataProvider = $model->getByIdMateri($idMateri);
-
-        return $this->render('index',['dataProvider'=>$dataProvider]);
-
     }
 }

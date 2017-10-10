@@ -1,0 +1,47 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\helpers\Url;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\KategoriSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Kategori';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="kategori-index box box-primary">
+    <div class="box-header with-border">
+        <?= Html::a('Create Kategori', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+    </div>
+    <div class="box-body table-responsive">
+        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <?= \fedemotta\datatables\DataTables::widget([
+            'dataProvider' => $dataProvider,
+            'rowOptions'=>function($model,$key,$index,$grid){
+            return ['data-id'=>$model->idKategori];
+            },
+            'layout' => "{items}\n{summary}\n{pager}",
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'idKategori',
+                'namaKategori',
+
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
+    </div>
+</div>
+
+<?php
+
+$this->registerJs("
+    $('tbody td').css('cursor', 'pointer');
+    $('tbody td').click(function (e) {
+        var id = $(this).closest('tr').data('id');
+        console.log('id = '+id);
+        if (e.target == this && id) location.href = '" . Url::to(['materi/materi-kategori']) . "?idKategori=' + id;
+    });
+");

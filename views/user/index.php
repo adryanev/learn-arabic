@@ -4,29 +4,36 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MateriDetailSearch */
+/* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Materi Detail';
+$this->title = 'User';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="materi-detail-index box box-primary">
+<div class="user-index box box-primary">
     <div class="box-header with-border">
-        <?= Html::a('Create Materi Detail', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
     </div>
     <div class="box-body table-responsive">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= \fedemotta\datatables\DataTables::widget([
+        <?= GridView::widget([
             'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'idMateriDetail',
-                'idMateri',
-                'isi:ntext',
-                'gambar',
-                'terjemahan:ntext',
+                'idUser',
+                'username',
+                'nama',
+                'email:email',
+                'authKey',
+                // 'accessToken',
+                // 'password',
+                // 'tanggalLahir',
+                // 'status',
+                // 'createdAt',
+                // 'updatedAt',
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

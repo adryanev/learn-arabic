@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\UploadedFile;
 /**
  * This is the model class for table "materi_detail".
@@ -89,5 +90,17 @@ class MateriDetail extends \yii\db\ActiveRecord
         }else{
             return false;
         }
+    }
+
+    public function getByIdMateri($idMateri){
+        $query = MateriDetail::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query'=> $query
+        ]);
+
+        $query->andFilterWhere(['idMateri'=>$idMateri]);
+
+        return $dataProvider;
     }
 }
