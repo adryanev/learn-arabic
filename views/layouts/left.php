@@ -32,8 +32,8 @@ $nama = $user->getNama();
                     ['label'=>'Soal', 'icon'=>'question-circle-o','url'=>['/soal']],
                    // ['label'=>'Waktu', 'icon'=>'clock-o','url'=>['/waktu']],
                     ['label'=>'Ujian', 'icon'=>'question-circle','url'=>['/ujian']],
-                    ['label'=>'Pengguna', 'icon'=>'users','url'=>['/user']],
-                    ['label'=>'Statistik', 'icon'=>'bar-chart','url'=>['/statistik']],
+                    //['label'=>'Pengguna', 'icon'=>'users','url'=>['/user']],
+                    //['label'=>'Statistik', 'icon'=>'bar-chart','url'=>['/statistik']],
                     //['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 
                 ],
