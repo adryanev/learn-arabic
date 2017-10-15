@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-body table-responsive">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= \fedemotta\datatables\DataTables::widget([
+        <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [

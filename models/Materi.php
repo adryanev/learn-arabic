@@ -67,13 +67,9 @@ class Materi extends \yii\db\ActiveRecord
     }
 
     public function getMateriByKategori($idKategori){
-        $query = Materi::find();
 
-        $dataProvider = new ActiveDataProvider([
-           'query'=> $query
-        ]);
-
-        $query->andFilterWhere(['idKategori'=>$idKategori]);
+        $query = Materi::find()->where(['idKategori' =>$idKategori])->all();
+        $dataProvider = $query;
 
         return $dataProvider;
     }

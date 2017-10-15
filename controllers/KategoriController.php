@@ -36,12 +36,9 @@ class KategoriController extends Controller
     public function actionIndex()
     {
         $searchModel = new KategoriSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = Kategori::find()->all();
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('index',['dataProvider'=>$dataProvider]);
     }
 
     /**
