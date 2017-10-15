@@ -22,8 +22,9 @@ class LoginController extends Controller
         if(\Yii::$app->request->isPost){
 
             $data = \Yii::$app->request->post();
-            $password = sha1($data->password);
-            $user = User::find()->where(['username'=>$data->username],['password'=>$password])->all();
+            $password = sha1($data['password']);
+            $user = User::find()->where(['username'=>$data['username']])
+                ->andWhere(['password'=> $password])->all();
 
             if(isset($user)){
                 $response['status'] = 'success';
