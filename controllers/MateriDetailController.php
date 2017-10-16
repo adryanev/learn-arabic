@@ -67,14 +67,16 @@ class MateriDetailController extends Controller
     {
         $model = new MateriDetail();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->imageFile = UploadedFile::getInstance($model,'imageFile');
-            if($model->upload()){
-                $model->gambar = $model->imageFile->getBaseName().'.'.$model->imageFile->getExtension();
-                $model->save();
-            }
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
-        } else {
+
+        $data = Yii::$app->request->post();
+        $model->gambar =UploadedFile::getInstance($model,'gambar');
+        if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
+
+        if($model->load($data) && $model->save()){
+            $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+            return $this->redirect(['view', 'id' => $model->idSoal]);
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -91,8 +93,18 @@ class MateriDetailController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+        $data = Yii::$app->request->post();
+        $model->gambar =UploadedFile::getInstance($model,'gambar');
+        if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
+
+        if($model->load($data) && $model->save()){
+
+            if($data['MateriDetail']['gambar'] != NULL){
+                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+            }
+
+            return $this->redirect(['view', 'id' => $model->idSoal]);
+
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -129,10 +141,11 @@ class MateriDetailController extends Controller
         }
     }
 
-    public function actionDetail($idMateri){
-        $model = new MateriDetail();
+    public function actionDetail($idMateri,$idKategori){
 
-        $dataProvider = $model->getByIdMateri($idMateri);
+        $query = Yii::$app->db->createCommand("SELECT materi_detail.idMateriDetail, materi.namaMateri, kategori.namaKategori, materi_detail.isi,materi_detail.gambar,materi_detail.terjemahan,materi_detail.timestamp FROM materi_detail inner JOIN materi inner JOIN kategori On materi_detail.idMateri = materi.idMateri and materi_detail.idKategori = kategori.idKategori
+WHERE materi_detail.idMateri =".$idMateri."  and materi_detail.idKategori =".$idKategori)->queryAll();
+        $dataProvider = $query;
 
         return $this->render('index',['dataProvider'=>$dataProvider]);
 

@@ -3,25 +3,23 @@
 namespace app\models;
 
 use Yii;
-use yii\data\ActiveDataProvider;
-use yii\web\UploadedFile;
+
 /**
  * This is the model class for table "materi_detail".
  *
  * @property integer $idMateriDetail
+ * @property integer $idKategori
  * @property integer $idMateri
  * @property string $isi
  * @property string $gambar
  * @property string $terjemahan
+ * @property string $timestamp
  *
+ * @property Kategori $idKategori0
  * @property Materi $idMateri0
  */
 class MateriDetail extends \yii\db\ActiveRecord
 {
-    /**
-     * @var UploadedFile
-     */
-    public $imageFile;
     /**
      * @inheritdoc
      */
@@ -36,11 +34,12 @@ class MateriDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idMateri', 'isi', 'gambar', 'terjemahan'], 'required'],
-            [['idMateri'], 'integer'],
+            [['idKategori', 'idMateri', 'isi'], 'required'],
+            [['idKategori', 'idMateri'], 'integer'],
             [['isi', 'terjemahan'], 'string'],
-            [['imageFile'], 'file', 'skipOnEmpty'=>false, 'extensions' => 'png, jpg'],
-            [['gambar'], 'string', 'max' => 255],
+            [['terjemahan','gambar','timestamp'], 'safe'],
+            [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
+            [['idKategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['idKategori' => 'idKategori']],
             [['idMateri'], 'exist', 'skipOnError' => true, 'targetClass' => Materi::className(), 'targetAttribute' => ['idMateri' => 'idMateri']],
         ];
     }
@@ -52,11 +51,21 @@ class MateriDetail extends \yii\db\ActiveRecord
     {
         return [
             'idMateriDetail' => 'Id Materi Detail',
+            'idKategori' => 'Id Kategori',
             'idMateri' => 'Id Materi',
             'isi' => 'Isi',
             'gambar' => 'Gambar',
             'terjemahan' => 'Terjemahan',
+            'timestamp' => 'Timestamp',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdKategori0()
+    {
+        return $this->hasOne(Kategori::className(), ['idKategori' => 'idKategori']);
     }
 
     /**
@@ -67,40 +76,8 @@ class MateriDetail extends \yii\db\ActiveRecord
         return $this->hasOne(Materi::className(), ['idMateri' => 'idMateri']);
     }
 
-    /**
-     * Mendapatkan Semua Materi detail dengan idMateri tertentu.
-     * @param $id
-     * @return MateriDetail[]|array|\yii\db\ActiveRecord[]
-     */
-    public function getMateriDetailByIdMateri($id){
-        return MateriDetail::find()->andWhere(['idMateri'=>$id])->all();
-    }
-
-    /**
-     * Mendapatkan semua detail materi.
-     * @return MateriDetail[]|array|\yii\db\ActiveRecord[]
-     */
-    public function getAllMateriDetail(){
-        return MateriDetail::find()->all();
-    }
-    public function upload(){
-        if($this->validate()){
-            $this->imageFile->saveAs('uploads/images/'.$this->imageFile->baseName.'.'.$this->imageFile->extension);
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public function getByIdMateri($idMateri){
-        $query = MateriDetail::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query'=> $query
-        ]);
-
-        $query->andFilterWhere(['idMateri'=>$idMateri]);
-
-        return $dataProvider;
+    public static function findMateri($idMateri,$idKategori){
+        $data = MateriDetail::find()->where(['idMateri' => $idMateri])->andWhere(['idKategori'=>$idKategori]);
+        return $data;
     }
 }

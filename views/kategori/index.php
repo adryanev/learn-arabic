@@ -30,19 +30,28 @@ $this->params['breadcrumbs'][] = $this->title;
             </thead>
             <tbody>
             <?php
-                    foreach ($dataProvider as $data){
+            $idMateri = $dataProvider['idMateri'];
+
+
+
+                   foreach ($dataProvider['kategori'] as $data){
+                      $idKategori = $data['idKategori'];
+                      $namaKategori = $data['namaKategori'];
+
+
                         echo "<tr>";
-                        echo "<td><a href='/learn-arabic/web/materi/materi-kategori?idKategori=$data->idKategori'>$data->idKategori</a></td>";
-                        echo "<td><a href='/learn-arabic/web/materi/materi-kategori?idKategori=$data->idKategori'>$data->namaKategori</a></td>";
+                        echo "<td><a href='/learn-arabic/web/materi-detail/detail?idMateri=$idMateri&idKategori=$idKategori'>$idKategori</a></td>";
+                        echo "<td><a href='/learn-arabic/web/materi-detail/detail?idMateri=$idMateri&idKategori=$idKategori'>$namaKategori</a></td>";
                         echo "<td>
-                                <a href='/learn-arabic/web/kategori/$data->idKategori' title=\"View\" aria-label=\"View\" data-pjax=\"0\">
+                                <a href='/learn-arabic/web/kategori/$idKategori' title=\"View\" aria-label=\"View\" data-pjax=\"0\">
                                 <span class=\"glyphicon glyphicon-eye-open\"></span></a> 
-                                <a href='/learn-arabic/web/kategori/update/$data->idKategori' title=\"Update\" aria-label=\"Update\" data-pjax=\"0\">
+                                <a href='/learn-arabic/web/kategori/update/$idKategori' title=\"Update\" aria-label=\"Update\" data-pjax=\"0\">
                                 <span class=\"glyphicon glyphicon-pencil\"></span></a> 
-                                <a href='/learn-arabic/web/kategori/delete/$data->idKategori'title=\"Delete\" aria-label=\"Delete\" data-pjax=\"0\" data-confirm=\"Are you sure you want to delete this item?\" data-method=\"post\">
+                                <a href='/learn-arabic/web/kategori/delete/$idKategori'title=\"Delete\" aria-label=\"Delete\" data-pjax=\"0\" data-confirm=\"Are you sure you want to delete this item?\" data-method=\"post\">
                                 <span class=\"glyphicon glyphicon-trash\"></span></a>
                                 </td>";
                         echo "</tr>";
+
                     }
 
                 ?>

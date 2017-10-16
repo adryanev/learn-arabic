@@ -14,9 +14,11 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'idMateri')->textInput() ?>
 
+        <?= $form->field($model, 'idKategori')->textInput() ?>
+
         <?= $form->field($model, 'isi')->textarea(['rows' => 6]) ?>
 
-        <?= $form->field($model, 'imageFile')->fileInput() ?>
+        <?= $form->field($model, 'gambar')->fileInput() ?>
 
         <?= $form->field($model, 'terjemahan')->textarea(['rows' => 6]) ?>
 

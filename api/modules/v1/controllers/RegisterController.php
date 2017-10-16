@@ -39,7 +39,7 @@ class RegisterController extends Controller
             }else{
 
                 $error = var_dump($user->save());
-                $response['status'] = 'gagal menyimpan user: '.$error;
+                $response['status'] = 'failed';
             }
         }
 

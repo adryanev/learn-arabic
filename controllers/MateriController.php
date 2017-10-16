@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Materi;
 use app\models\MateriSearch;
-use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,11 +35,10 @@ class MateriController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new MateriSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $dataProvider = Materi::find()->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -66,7 +64,10 @@ class MateriController extends Controller
     {
         $model = new Materi();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $data = Yii::$app->request->post();
+            $data['Materi']['idKategori'] = json_encode($model->idMateri);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idMateri]);
         } else {
             return $this->render('create', [
@@ -121,18 +122,5 @@ class MateriController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionMateriDetail($id){
-
-    }
-
-    public function actionMateriKategori($idKategori){
-
-        $model = new Materi();
-
-        $dataProvider = $model->getMateriByKategori($idKategori);
-
-        return $this->render('materi-kategori',['dataProvider'=> $dataProvider]);
     }
 }

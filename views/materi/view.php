@@ -27,7 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'idMateri',
                 'namaMateri',
-                'idKategori',
+                'idKategori:ntext',
+                'timestamp',
             ],
         ]) ?>
     </div>

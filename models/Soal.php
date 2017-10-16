@@ -3,11 +3,12 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
 /**
  * This is the model class for table "soal".
  *
  * @property integer $idSoal
+ * @property string gambar
  * @property string $soal
  * @property string $a
  * @property string $b
@@ -17,6 +18,9 @@ use Yii;
  */
 class Soal extends \yii\db\ActiveRecord
 {
+    /**
+     * @var UploadedFile
+     */
 
     /**
      * @inheritdoc
@@ -34,7 +38,7 @@ class Soal extends \yii\db\ActiveRecord
         return [
             [['soal', 'a', 'b', 'c', 'd', 'jawaban'], 'required'],
             [['soal'], 'string', 'max' => 100],
-            [['gambar'],'string','max'=>50],
+            [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
             [['a', 'b', 'c', 'd'], 'string', 'max' => 50],
             [['jawaban'], 'string', 'max' => 1],
         ];
@@ -55,6 +59,10 @@ class Soal extends \yii\db\ActiveRecord
             'd' => 'D',
             'jawaban' => 'Jawaban',
         ];
+    }
+
+    public function getOptions(){
+        return['','A','B','C','D'];
     }
 
     public function getSoalLimit($by){

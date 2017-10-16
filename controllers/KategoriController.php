@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Materi;
 use Yii;
 use app\models\Kategori;
 use app\models\KategoriSearch;
@@ -117,5 +118,16 @@ class KategoriController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionKategoriMateri($idMateri){
+
+        $data = Materi::findOne(['idMateri'=>$idMateri]);
+        $dataNama = Yii::$app->db->createCommand("SELECT * from kategori")->queryAll();
+
+        $dataKategori['idMateri'] = $data->idMateri;
+        $dataKategori['kategori'] = $dataNama;
+
+        return $this->render('index',['dataProvider'=>$dataKategori]);
     }
 }

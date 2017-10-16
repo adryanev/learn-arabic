@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body table-responsive">
 
-        <?= $form->field($model, 'namaMateri')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'namaMateri')->textInput() ?>
 
-        <?= $form->field($model, 'idKategori')->textInput() ?>
+        <?= $form->field($model, 'idKategori')->textarea(['rows' => 6]) ?>
 
     </div>
     <div class="box-footer">
