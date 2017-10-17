@@ -15,6 +15,7 @@ use yii\web\UploadedFile;
  * @property string $c
  * @property string $d
  * @property string $jawaban
+ * @property string $timestamp
  */
 class Soal extends \yii\db\ActiveRecord
 {
@@ -38,6 +39,8 @@ class Soal extends \yii\db\ActiveRecord
         return [
             [['soal', 'a', 'b', 'c', 'd', 'jawaban'], 'required'],
             [['soal'], 'string', 'max' => 100],
+            [['timestamp'],'save'],
+            [['timestamp'],'string'],
             [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
             [['a', 'b', 'c', 'd'], 'string', 'max' => 50],
             [['jawaban'], 'string', 'max' => 1],
@@ -58,6 +61,7 @@ class Soal extends \yii\db\ActiveRecord
             'c' => 'C',
             'd' => 'D',
             'jawaban' => 'Jawaban',
+            'timestamp'=>'Time Stamp',
         ];
     }
 
