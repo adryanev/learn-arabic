@@ -10,13 +10,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Materi Detail', 'url' => ['index']
 $this->params['breadcrumbs'][] = ['label' => $model->idMateriDetail, 'url' => ['view', 'id' => $model->idMateriDetail]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="card">
-    <div class="card-content">
-        <?= $this->render('_form', [
-            'model' => $model,
-        ]) ?>
-    </div>
+<div class="materi-detail-update">
 
-
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
 
 </div>

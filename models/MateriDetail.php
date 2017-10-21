@@ -32,7 +32,7 @@ class MateriDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idSubMateri', 'isi', 'gambar', 'terjemahan'], 'required'],
+            [['idSubMateri', 'isi', 'terjemahan'], 'required'],
             [['idSubMateri'], 'integer'],
             [['isi', 'terjemahan'], 'string'],
             [['timestamp'], 'safe'],

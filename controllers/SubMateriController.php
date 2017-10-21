@@ -3,17 +3,18 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Soal;
-use app\models\SoalSearch;
+use app\models\SubMateri;
+use app\models\SubMateriSearch;
+use yii\data\ArrayDataProvider;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * SoalController implements the CRUD actions for Soal model.
+ * SubMateriController implements the CRUD actions for SubMateri model.
  */
-class SoalController extends Controller
+class SubMateriController extends Controller
 {
     /**
      * @inheritdoc
@@ -31,12 +32,12 @@ class SoalController extends Controller
     }
 
     /**
-     * Lists all Soal models.
+     * Lists all SubMateri models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SoalSearch();
+        $searchModel = new SubMateriSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +47,7 @@ class SoalController extends Controller
     }
 
     /**
-     * Displays a single Soal model.
+     * Displays a single SubMateri model.
      * @param integer $id
      * @return mixed
      */
@@ -58,24 +59,17 @@ class SoalController extends Controller
     }
 
     /**
-     * Creates a new Soal model.
+     * Creates a new SubMateri model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Soal();
+        $model = new SubMateri();
 
-
-        $data = Yii::$app->request->post();
-        $model->gambar =UploadedFile::getInstance($model,'gambar');
-        if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
-
-        if($model->load($data) && $model->save()){
-            $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
-            return $this->redirect(['view', 'id' => $model->idSoal]);
-        }
-        else {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idSubMateri]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -83,7 +77,7 @@ class SoalController extends Controller
     }
 
     /**
-     * Updates an existing Soal model.
+     * Updates an existing SubMateri model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -92,18 +86,8 @@ class SoalController extends Controller
     {
         $model = $this->findModel($id);
 
-        $data = Yii::$app->request->post();
-        $model->gambar =UploadedFile::getInstance($model,'gambar');
-        if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
-
-        if($model->load($data) && $model->save()){
-
-            if($data['Soal']['gambar'] != NULL){
-                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
-            }
-
-            return $this->redirect(['view', 'id' => $model->idSoal]);
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idSubMateri]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -112,7 +96,7 @@ class SoalController extends Controller
     }
 
     /**
-     * Deletes an existing Soal model.
+     * Deletes an existing SubMateri model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -125,18 +109,36 @@ class SoalController extends Controller
     }
 
     /**
-     * Finds the Soal model based on its primary key value.
+     * Finds the SubMateri model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Soal the loaded model
+     * @return SubMateri the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Soal::findOne($id)) !== null) {
+        if (($model = SubMateri::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionSubMateri($idMateri){
+
+        $query = "SELECT sub_materi.idSubMateri,sub_materi.idMateri, materi.namaMateri,sub_materi.idKategori, kategori.namaKategori,sub_materi.timestamp FROM sub_materi
+INNER join materi on sub_materi.idMateri = materi.idMateri
+INNER join kategori on sub_materi.idKategori = kategori.idKategori
+where sub_materi.idMateri = ". $idMateri;
+
+        $dataProvider = new SqlDataProvider(
+            [
+                'sql'=>$query
+            ]
+        );
+        //$rows = SubMateri::getSubMateriByidMateri($idMateri);
+
+
+        return $this->render('index' ,['dataProvider'=>$dataProvider]);
     }
 }

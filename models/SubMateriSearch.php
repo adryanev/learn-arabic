@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\MateriDetail;
+use app\models\SubMateri;
 
 /**
- * MateriDetailSearch represents the model behind the search form of `app\models\MateriDetail`.
+ * SubMateriSearch represents the model behind the search form of `app\models\SubMateri`.
  */
-class MateriDetailSearch extends MateriDetail
+class SubMateriSearch extends SubMateri
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class MateriDetailSearch extends MateriDetail
     public function rules()
     {
         return [
-            [['idMateriDetail', 'idSubMateri'], 'integer'],
-            [['isi', 'gambar', 'terjemahan', 'timestamp'], 'safe'],
+            [['idSubMateri', 'idMateri', 'idKategori'], 'integer'],
+            [['timestamp'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class MateriDetailSearch extends MateriDetail
      */
     public function search($params)
     {
-        $query = MateriDetail::find();
+        $query = SubMateri::find();
 
         // add conditions that should always apply here
 
@@ -58,14 +58,11 @@ class MateriDetailSearch extends MateriDetail
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idMateriDetail' => $this->idMateriDetail,
             'idSubMateri' => $this->idSubMateri,
+            'idMateri' => $this->idMateri,
+            'idKategori' => $this->idKategori,
             'timestamp' => $this->timestamp,
         ]);
-
-        $query->andFilterWhere(['like', 'isi', $this->isi])
-            ->andFilterWhere(['like', 'gambar', $this->gambar])
-            ->andFilterWhere(['like', 'terjemahan', $this->terjemahan]);
 
         return $dataProvider;
     }

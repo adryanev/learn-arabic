@@ -40,6 +40,7 @@ class RegisterController extends Controller
 
                 $error = var_dump($user->save());
                 $response['status'] = 'failed';
+                $response['error'] = $error;
             }
         }
 

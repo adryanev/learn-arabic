@@ -10,66 +10,32 @@ use yii\grid\GridView;
 $this->title = 'Materi Detail';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="materi-detail-index box box-primary">
-    <div class="box-header with-border">
-        <?= Html::a('Create Materi Detail', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+        <h4 class="title">Materi Detail</h4>
     </div>
-    <div class="box-body table-responsive">
+    <div class="card-content table-responsive">
+        <?= Html::a('Create Materi Detail', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <table class="table table-hover table-bordered dt-responsive nowrap" id="tabelKategori" cellspacing="0" width="100%">
+        <?= \fedemotta\datatables\DataTables::widget([
+            'dataProvider' => $dataProvider,
+            //'filterModel' => $searchModel,
+            'layout' => "{items}\n{summary}\n{pager}",
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            <thead>
-            <tr>
-                <th>
-                    Id Materi Detail
-                </th>
-                <th>
-                    Nama Materi
-                </th>
-                <th>
-                    Nama Kategori
-                </th>
-                <th>
-                    Isi
-                </th>
-                <th>Gambar</th>
-                <th>Terjemahan</th>
-                <th class="action-column">Aksi</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
+                'namaMateri',
+                'namaKategori',
+                //'idMateriDetail',
+               // 'idSubMateri',
+                'isi:ntext',
+                'gambar',
+                'terjemahan:ntext',
+                // 'timestamp',
 
-            foreach ($dataProvider as $data){
-                $idMateriDetail = $data['idMateriDetail'];
-                $namaMateri = $data['namaMateri'];
-                $namaKategori = $data['namaKategori'];
-                $isi = $data['isi'];
-                $gambar = $data['gambar'];
-                $terjemahan = $data['terjemahan'];
-
-
-                echo "<tr>";
-                echo "<td>$idMateriDetail</td>";
-                echo "<td>$namaMateri</td>";
-                echo "<td>$namaKategori</td>";
-                echo "<td>$isi</td>";
-                echo "<td>$gambar</td>";
-                echo "<td>$terjemahan</td>";
-                echo "<td>
-                                <a href='/learn-arabic/web/kategori/$idMateriDetail' title=\"View\" aria-label=\"View\" data-pjax=\"0\">
-                                <span class=\"glyphicon glyphicon-eye-open\"></span></a> 
-                                <a href='/learn-arabic/web/kategori/update/$idMateriDetail' title=\"Update\" aria-label=\"Update\" data-pjax=\"0\">
-                                <span class=\"glyphicon glyphicon-pencil\"></span></a> 
-                                <a href='/learn-arabic/web/kategori/delete/$idMateriDetail'title=\"Delete\" aria-label=\"Delete\" data-pjax=\"0\" data-confirm=\"Are you sure you want to delete this item?\" data-method=\"post\">
-                                <span class=\"glyphicon glyphicon-trash\"></span></a>
-                                </td>";
-                echo "</tr>";
-
-            }
-
-            ?>
-            </tbody>
-        </table>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
     </div>
 </div>

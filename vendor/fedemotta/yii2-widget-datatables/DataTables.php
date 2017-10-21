@@ -29,7 +29,7 @@ class DataTables extends \yii\grid\GridView
     * @var array the HTML attributes for the datatables table element.
     * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
     */
-    public $tableOptions = ["class"=>"table table-striped table-bordered","cellspacing"=>"0", "width"=>"100%"];
+    public $tableOptions = ["class"=>"table table-hover table-striped","cellspacing"=>"0", "width"=>"100%"];
     
     /**
     * @var array the HTML attributes for the datatables table element.

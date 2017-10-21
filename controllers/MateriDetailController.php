@@ -2,14 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\Materi;
 use Yii;
 use app\models\MateriDetail;
 use app\models\MateriDetailSearch;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
  * MateriDetailController implements the CRUD actions for MateriDetail model.
@@ -74,7 +73,7 @@ class MateriDetailController extends Controller
 
         if($model->load($data) && $model->save()){
             $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
-            return $this->redirect(['view', 'id' => $model->idSoal]);
+            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
         }
         else {
             return $this->render('create', [
@@ -103,7 +102,7 @@ class MateriDetailController extends Controller
                 $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
             }
 
-            return $this->redirect(['view', 'id' => $model->idSoal]);
+            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
 
         } else {
             return $this->render('update', [
@@ -141,13 +140,17 @@ class MateriDetailController extends Controller
         }
     }
 
-    public function actionDetail($idMateri,$idKategori){
-
-        $query = Yii::$app->db->createCommand("SELECT materi_detail.idMateriDetail, materi.namaMateri, kategori.namaKategori, materi_detail.isi,materi_detail.gambar,materi_detail.terjemahan,materi_detail.timestamp FROM materi_detail inner JOIN materi inner JOIN kategori On materi_detail.idMateri = materi.idMateri and materi_detail.idKategori = kategori.idKategori
-WHERE materi_detail.idMateri =".$idMateri."  and materi_detail.idKategori =".$idKategori)->queryAll();
-        $dataProvider = $query;
-
-        return $this->render('index',['dataProvider'=>$dataProvider]);
-
+    public function actionMateriDetail($idSubMateri){
+        $query = "select materi_detail.idMateriDetail,materi_detail.idSubMateri, materi.namaMateri, kategori.namaKategori, materi_detail.isi, materi_detail.gambar, materi_detail.terjemahan, materi_detail.timestamp
+from materi_detail 
+INNER join sub_materi on materi_detail.idSubMateri = sub_materi.idSubMateri 
+INNER JOIN materi on sub_materi.idMateri = materi.idMateri 
+inner join kategori on sub_materi.idKategori = kategori.idKategori
+where materi_detail.idSubMateri = ".$idSubMateri;
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query 
+        ]);
+        
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 }

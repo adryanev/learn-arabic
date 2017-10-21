@@ -76,4 +76,20 @@ class SubMateri extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Materi::className(), ['idMateri' => 'idMateri']);
     }
+
+
+    public static function getSubMateriByidMateri($idMateri){
+
+        $connection =Yii::$app->getDb();
+        $query = "SELECT sub_materi.idSubMateri,sub_materi.idMateri, materi.namaMateri,sub_materi.idKategori, kategori.namaKategori,sub_materi.timestamp FROM sub_materi
+INNER join materi on sub_materi.idMateri = materi.idMateri
+INNER join kategori on sub_materi.idKategori = kategori.idKategori
+where sub_materi.idMateri = ". $idMateri;
+        $command =  $connection->createCommand($query);
+      //  $rows = (new yii\db\Query())->select(['sub_materi.idSubmateri','materi.namaMateri','materi.namaMateri','materi.namaMateri',
+      //      'sub_materi.idKategori','kategori.namaKategori','sub_materi.timestamp'])->from('sub_materi')->innerJoin('materi')->innerJoin('kategori')->where(['sub_materi.idMateri'=>$idMateri])->all();
+        $result = $command->queryAll();
+        return $result;
+
+    }
 }

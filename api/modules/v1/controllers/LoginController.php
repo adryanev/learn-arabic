@@ -28,6 +28,7 @@ class LoginController extends Controller
 
             if(isset($user)){
                 $response['status'] = 'success';
+                $response['data'] = $user;
             }
             else{
                 $response['status'] = 'gagal login';

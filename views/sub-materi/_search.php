@@ -4,28 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MateriDetailSearch */
+/* @var $model app\models\SubMateriSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="materi-detail-search">
+<div class="sub-materi-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idMateriDetail') ?>
-
     <?= $form->field($model, 'idSubMateri') ?>
 
-    <?= $form->field($model, 'isi') ?>
+    <?= $form->field($model, 'idMateri') ?>
 
-    <?= $form->field($model, 'gambar') ?>
+    <?= $form->field($model, 'idKategori') ?>
 
-    <?= $form->field($model, 'terjemahan') ?>
-
-    <?php // echo $form->field($model, 'timestamp') ?>
+    <?= $form->field($model, 'timestamp') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

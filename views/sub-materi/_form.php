@@ -4,24 +4,20 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MateriDetail */
+/* @var $model app\models\SubMateri */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="card">
     <div class="card-header" data-background-color="purple">
-       <h4 class="title">'Materi Detail'</h4>
+       <h4 class="title">'Sub Materi'</h4>
     </div>
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-content table-responsive">
 
-                    <?= $form->field($model, 'idSubMateri')->textInput() ?>
+                    <?= $form->field($model, 'idMateri')->textInput() ?>
 
-        <?= $form->field($model, 'isi')->textarea(['rows' => 6]) ?>
-
-        <?= $form->field($model, 'gambar')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'terjemahan')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'idKategori')->textInput() ?>
 
         <?= $form->field($model, 'timestamp')->textInput() ?>
 

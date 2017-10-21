@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-dmstr\web\AdminLteAsset::register($this);
+app\assets\MaterialAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -17,11 +17,16 @@ dmstr\web\AdminLteAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="login-page">
-
+<body>
 <?php $this->beginBody() ?>
 
-    <?= $content ?>
+    <div class="row center-block">
+        <div class="col-md-4 col-md-offset-4">
+            <?= $content ?>
+        </div>
+
+    </div>
+
 
 <?php $this->endBody() ?>
 </body>
