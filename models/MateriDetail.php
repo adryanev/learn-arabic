@@ -8,15 +8,13 @@ use Yii;
  * This is the model class for table "materi_detail".
  *
  * @property integer $idMateriDetail
- * @property integer $idKategori
- * @property integer $idMateri
+ * @property integer $idSubMateri
  * @property string $isi
  * @property string $gambar
  * @property string $terjemahan
  * @property string $timestamp
  *
- * @property Kategori $idKategori0
- * @property Materi $idMateri0
+ * @property SubMateri $idSubMateri0
  */
 class MateriDetail extends \yii\db\ActiveRecord
 {
@@ -34,13 +32,12 @@ class MateriDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idKategori', 'idMateri', 'isi'], 'required'],
-            [['idKategori', 'idMateri'], 'integer'],
+            [['idSubMateri', 'isi', 'gambar', 'terjemahan'], 'required'],
+            [['idSubMateri'], 'integer'],
             [['isi', 'terjemahan'], 'string'],
-            [['terjemahan','gambar','timestamp'], 'safe'],
+            [['timestamp'], 'safe'],
             [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
-            [['idKategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['idKategori' => 'idKategori']],
-            [['idMateri'], 'exist', 'skipOnError' => true, 'targetClass' => Materi::className(), 'targetAttribute' => ['idMateri' => 'idMateri']],
+            [['idSubMateri'], 'exist', 'skipOnError' => true, 'targetClass' => SubMateri::className(), 'targetAttribute' => ['idSubMateri' => 'idSubMateri']],
         ];
     }
 
@@ -51,8 +48,7 @@ class MateriDetail extends \yii\db\ActiveRecord
     {
         return [
             'idMateriDetail' => 'Id Materi Detail',
-            'idKategori' => 'Id Kategori',
-            'idMateri' => 'Id Materi',
+            'idSubMateri' => 'Id Sub Materi',
             'isi' => 'Isi',
             'gambar' => 'Gambar',
             'terjemahan' => 'Terjemahan',
@@ -63,21 +59,8 @@ class MateriDetail extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdKategori0()
+    public function getIdSubMateri0()
     {
-        return $this->hasOne(Kategori::className(), ['idKategori' => 'idKategori']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdMateri0()
-    {
-        return $this->hasOne(Materi::className(), ['idMateri' => 'idMateri']);
-    }
-
-    public static function findMateri($idMateri,$idKategori){
-        $data = MateriDetail::find()->where(['idMateri' => $idMateri])->andWhere(['idKategori'=>$idKategori]);
-        return $data;
+        return $this->hasOne(SubMateri::className(), ['idSubMateri' => 'idSubMateri']);
     }
 }

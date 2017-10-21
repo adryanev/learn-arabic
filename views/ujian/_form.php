@@ -8,21 +8,24 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ujian-form box box-primary">
-    <?php $form = ActiveForm::begin(); ?>
-    <div class="box-body table-responsive">
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+       <h4 class="title">'Ujian'</h4>
+    </div>
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="card-content table-responsive">
 
-        <?= $form->field($model, 'idUser')->textInput() ?>
+                    <?= $form->field($model, 'idUser')->textInput() ?>
 
-        <?= $form->field($model, 'tglUjian')->textInput() ?>
+        <?= $form->field($model, 'tanggalUjian')->textInput() ?>
 
         <?= $form->field($model, 'totalSkor')->textInput() ?>
 
-        <?= $form->field($model, 'idWaktu')->textInput() ?>
+        </div>
+        <div class="box-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
+    </div>
 
-    </div>
-    <div class="box-footer">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
 </div>

@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $content string */
 
 
-    dmstr\web\AdminLteAsset::register($this);
-    app\assets\AdminltePluginAsset::register($this);
+    app\assets\MaterialAsset::register($this);
+    //app\assets\AdminltePluginAsset::register($this);
 
-    $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+  //  $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -20,24 +20,28 @@ use yii\helpers\Html;
         <title><?= Html::encode(Yii::$app->name) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body>
     <?php $this->beginBody() ?>
     <div class="wrapper">
 
         <?= $this->render(
-            'header.php',
-            ['directoryAsset' => $directoryAsset]
+            'sidebar.php'
+          //  ['directoryAsset' => $directoryAsset]
         ) ?>
 
         <?= $this->render(
-            'left.php',
-            ['directoryAsset' => $directoryAsset]
+            'navbar.php'
+          //  ['directoryAsset' => $directoryAsset]
         )
         ?>
 
         <?= $this->render(
-            'content.php',
-            ['content' => $content, 'directoryAsset' => $directoryAsset]
+            'isi.php',
+            ['content' => $content]
+        ) ?>
+        <?= $this->render(
+            'footer.php'
+        //  ['content' => $content, 'directoryAsset' => $directoryAsset]
         ) ?>
 
     </div>

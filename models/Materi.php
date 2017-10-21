@@ -9,10 +9,9 @@ use Yii;
  *
  * @property integer $idMateri
  * @property string $namaMateri
- * @property string $idKategori
  * @property string $timestamp
  *
- * @property MateriDetail[] $materiDetails
+ * @property SubMateri[] $subMateris
  */
 class Materi extends \yii\db\ActiveRecord
 {
@@ -30,8 +29,8 @@ class Materi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['namaMateri', 'idKategori'], 'required'],
-            [['namaMateri', 'idKategori'], 'string'],
+            [['namaMateri'], 'required'],
+            [['namaMateri'], 'string'],
             [['timestamp'], 'safe'],
         ];
     }
@@ -44,7 +43,6 @@ class Materi extends \yii\db\ActiveRecord
         return [
             'idMateri' => 'Id Materi',
             'namaMateri' => 'Nama Materi',
-            'idKategori' => 'Id Kategori',
             'timestamp' => 'Timestamp',
         ];
     }
@@ -52,8 +50,8 @@ class Materi extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMateriDetails()
+    public function getSubMateris()
     {
-        return $this->hasMany(MateriDetail::className(), ['idMateri' => 'idMateri']);
+        return $this->hasMany(SubMateri::className(), ['idMateri' => 'idMateri']);
     }
 }

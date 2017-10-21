@@ -8,7 +8,6 @@ use app\models\SoalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
  * SoalController implements the CRUD actions for Soal model.
@@ -66,16 +65,9 @@ class SoalController extends Controller
     {
         $model = new Soal();
 
-
-            $data = Yii::$app->request->post();
-            $model->gambar =UploadedFile::getInstance($model,'gambar');
-            if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
-
-            if($model->load($data) && $model->save()){
-                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
-                return $this->redirect(['view', 'id' => $model->idSoal]);
-        }
-        else {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idSoal]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -92,19 +84,8 @@ class SoalController extends Controller
     {
         $model = $this->findModel($id);
 
-
-        $data = Yii::$app->request->post();
-        $model->gambar =UploadedFile::getInstance($model,'gambar');
-        if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
-
-        if($model->load($data) && $model->save()){
-
-            if($data['Soal']['gambar'] != NULL){
-                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
-            }
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idSoal]);
-
         } else {
             return $this->render('update', [
                 'model' => $model,

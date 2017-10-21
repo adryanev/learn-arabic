@@ -18,8 +18,8 @@ class UjianSearch extends Ujian
     public function rules()
     {
         return [
-            [['idUjian', 'idUser', 'totalSkor', 'idWaktu'], 'integer'],
-            [['tglUjian'], 'safe'],
+            [['idUjian', 'idUser', 'totalSkor'], 'integer'],
+            [['tanggalUjian'], 'safe'],
         ];
     }
 
@@ -60,9 +60,8 @@ class UjianSearch extends Ujian
         $query->andFilterWhere([
             'idUjian' => $this->idUjian,
             'idUser' => $this->idUser,
-            'tglUjian' => $this->tglUjian,
+            'tanggalUjian' => $this->tanggalUjian,
             'totalSkor' => $this->totalSkor,
-            'idWaktu' => $this->idWaktu,
         ]);
 
         return $dataProvider;

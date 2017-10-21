@@ -8,17 +8,22 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="materi-form box box-primary">
-    <?php $form = ActiveForm::begin(); ?>
-    <div class="box-body table-responsive">
-
-        <?= $form->field($model, 'namaMateri')->textInput() ?>
-
-        <?= $form->field($model, 'idKategori')->textarea(['rows' => 6]) ?>
-
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+       <h4 class="title">'Materi'</h4>
     </div>
-    <div class="box-footer">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="card-content table-responsive">
+
+                    <?= $form->field($model, 'namaMateri')->textarea(['rows' => 6]) ?>
+
+        <?= $form->field($model, 'timestamp')->textInput() ?>
+
+        </div>
+        <div class="box-footer">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
     </div>
-    <?php ActiveForm::end(); ?>
+
 </div>

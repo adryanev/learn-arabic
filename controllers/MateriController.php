@@ -35,10 +35,11 @@ class MateriController extends Controller
      */
     public function actionIndex()
     {
-
-        $dataProvider = Materi::find()->all();
+        $searchModel = new MateriSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -64,10 +65,7 @@ class MateriController extends Controller
     {
         $model = new Materi();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $data = Yii::$app->request->post();
-            $data['Materi']['idKategori'] = json_encode($model->idMateri);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idMateri]);
         } else {
             return $this->render('create', [

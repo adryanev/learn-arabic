@@ -9,12 +9,10 @@ use Yii;
  *
  * @property integer $idUjian
  * @property integer $idUser
- * @property string $tglUjian
+ * @property string $tanggalUjian
  * @property integer $totalSkor
- * @property integer $idWaktu
  *
  * @property User $idUser0
- * @property Waktu $idWaktu0
  */
 class Ujian extends \yii\db\ActiveRecord
 {
@@ -32,11 +30,10 @@ class Ujian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idUser', 'tglUjian', 'totalSkor', 'idWaktu'], 'required'],
-            [['idUser', 'totalSkor', 'idWaktu'], 'integer'],
-            [['tglUjian'], 'safe'],
+            [['idUser', 'tanggalUjian', 'totalSkor'], 'required'],
+            [['idUser', 'totalSkor'], 'integer'],
+            [['tanggalUjian'], 'safe'],
             [['idUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['idUser' => 'idUser']],
-            [['idWaktu'], 'exist', 'skipOnError' => true, 'targetClass' => Waktu::className(), 'targetAttribute' => ['idWaktu' => 'idWaktu']],
         ];
     }
 
@@ -48,9 +45,8 @@ class Ujian extends \yii\db\ActiveRecord
         return [
             'idUjian' => 'Id Ujian',
             'idUser' => 'Id User',
-            'tglUjian' => 'Tgl Ujian',
+            'tanggalUjian' => 'Tanggal Ujian',
             'totalSkor' => 'Total Skor',
-            'idWaktu' => 'Id Waktu',
         ];
     }
 
@@ -60,13 +56,5 @@ class Ujian extends \yii\db\ActiveRecord
     public function getIdUser0()
     {
         return $this->hasOne(User::className(), ['idUser' => 'idUser']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIdWaktu0()
-    {
-        return $this->hasOne(Waktu::className(), ['idWaktu' => 'idWaktu']);
     }
 }

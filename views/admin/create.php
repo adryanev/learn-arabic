@@ -10,10 +10,12 @@ $this->title = 'Create Admin';
 $this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="admin-create">
+<div class="card">
+    <div class="card-content">
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    </div>
 
-    <?= $this->render('_form', [
-    'model' => $model,
-    ]) ?>
 
 </div>
