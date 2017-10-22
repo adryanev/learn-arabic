@@ -111,6 +111,7 @@ class SoalController extends Controller
             else{
                $model->gambar = $gambarSekarang;
             }
+            $model->timestamp = date('Y-m-d h:i:s');
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->idSoal]);
 

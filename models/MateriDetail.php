@@ -32,10 +32,10 @@ class MateriDetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idSubMateri', 'isi', 'terjemahan'], 'required'],
+            [['idSubMateri', 'isi'], 'required'],
             [['idSubMateri'], 'integer'],
             [['isi', 'terjemahan'], 'string'],
-            [['timestamp'], 'safe'],
+            [['timestamp','terjemahan'], 'safe'],
             [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
             [['idSubMateri'], 'exist', 'skipOnError' => true, 'targetClass' => SubMateri::className(), 'targetAttribute' => ['idSubMateri' => 'idSubMateri']],
         ];

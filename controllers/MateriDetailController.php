@@ -73,12 +73,15 @@ class MateriDetailController extends Controller
         $data = Yii::$app->request->post();
         $model->gambar =UploadedFile::getInstance($model,'gambar');
         if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
-        if($model->gambar == NULL) $data['MateriDetail']['gambar'] = null;
 
-        if($model->load($data) && $model->save()){
+        if($model->load($data)){
             if($model->gambar!=NULL){
                 $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
             }
+            else{
+                $model->gambar = null;
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idMateriDetail]);
         }
         else {
@@ -113,6 +116,7 @@ class MateriDetailController extends Controller
             else{
                 $model->gambar = $gambarSekarang;
             }
+            $model->timestamp = date('Y-m-d h:i:s');
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->idMateriDetail]);
 

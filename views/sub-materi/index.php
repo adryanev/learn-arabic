@@ -16,7 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <h4 class="title">Sub Materi</h4>
     </div>
     <div class="card-content table-responsive">
-        <?= Html::a('Create Sub Materi', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?php $count = \app\models\Kategori::find()->count();
+            if($dataProvider->count < $count){
+                ?>
+                <?= Html::a('Create Sub Materi', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+                <?php
+            }
+                ?>
         <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <?= \fedemotta\datatables\DataTables::widget([

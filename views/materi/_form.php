@@ -15,15 +15,13 @@ use yii\widgets\ActiveForm;
         <?php $form = ActiveForm::begin(); ?>
         <div class="card-content table-responsive">
 
-                    <?= $form->field($model, 'namaMateri')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'namaMateri')->textInput() ?>
 
-        <?= $form->field($model, 'timestamp')->textInput() ?>
+                    <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
 
         </div>
-        <div class="box-footer">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
-        </div>
+
+
         <?php ActiveForm::end(); ?>
     </div>
 
-</div>

@@ -50,8 +50,6 @@ $initalpreview = Html::img('/upload/images'.$model->gambar, ['class'=>'file-prev
                     ]
                 ]) ?>
 
-        <?= $form->field($model, 'timestamp')->textInput() ?>
-
             <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
         </div>
         <?php ActiveForm::end(); ?>
