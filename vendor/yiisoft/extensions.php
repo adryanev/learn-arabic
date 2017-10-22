@@ -456,4 +456,31 @@ return array (
       '@ramosisw/CImaterial' => $vendorDir . '/ramosisw/yii2-material-dashboard',
     ),
   ),
+  '2amigos/yii2-ckeditor-widget' => 
+  array (
+    'name' => '2amigos/yii2-ckeditor-widget',
+    'version' => '2.1.0.0',
+    'alias' => 
+    array (
+      '@dosamigos/ckeditor' => $vendorDir . '/2amigos/yii2-ckeditor-widget/src',
+    ),
+  ),
+  '2amigos/yii2-tinymce-widget' => 
+  array (
+    'name' => '2amigos/yii2-tinymce-widget',
+    'version' => '1.1.2.0',
+    'alias' => 
+    array (
+      '@dosamigos/tinymce' => $vendorDir . '/2amigos/yii2-tinymce-widget/src',
+    ),
+  ),
+  'vova07/yii2-imperavi-widget' => 
+  array (
+    'name' => 'vova07/yii2-imperavi-widget',
+    'version' => '1.3.1.0',
+    'alias' => 
+    array (
+      '@vova07/imperavi' => $vendorDir . '/vova07/yii2-imperavi-widget/src',
+    ),
+  ),
 );

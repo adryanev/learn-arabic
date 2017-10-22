@@ -27,6 +27,10 @@ class ComposerStaticInit3778353c1a290471a609cb2a9e1af232
             'yii\\authclient\\' => 15,
             'yii\\' => 4,
         ),
+        'v' => 
+        array (
+            'vova07\\imperavi\\' => 16,
+        ),
         'r' => 
         array (
             'rmrevin\\yii\\fontawesome\\' => 24,
@@ -93,6 +97,8 @@ class ComposerStaticInit3778353c1a290471a609cb2a9e1af232
         ),
         'd' => 
         array (
+            'dosamigos\\tinymce\\' => 18,
+            'dosamigos\\ckeditor\\' => 19,
             'dmstr\\' => 6,
             'dektrium\\user\\' => 14,
         ),
@@ -178,6 +184,10 @@ class ComposerStaticInit3778353c1a290471a609cb2a9e1af232
         'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
+        ),
+        'vova07\\imperavi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vova07/yii2-imperavi-widget/src',
         ),
         'rmrevin\\yii\\fontawesome\\' => 
         array (
@@ -365,6 +375,14 @@ class ComposerStaticInit3778353c1a290471a609cb2a9e1af232
         'fedemotta\\datatables\\' => 
         array (
             0 => __DIR__ . '/..' . '/fedemotta/yii2-widget-datatables',
+        ),
+        'dosamigos\\tinymce\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-tinymce-widget/src',
+        ),
+        'dosamigos\\ckeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-ckeditor-widget/src',
         ),
         'dmstr\\' => 
         array (

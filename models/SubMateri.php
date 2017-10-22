@@ -92,4 +92,5 @@ where sub_materi.idMateri = ". $idMateri;
         return $result;
 
     }
+
 }

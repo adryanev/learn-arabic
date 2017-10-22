@@ -27,7 +27,9 @@
         "johnitvn/yii2-ajaxcrud": "*",
         "fedemotta/yii2-widget-datatables": "*",
         "kartik-v/yii2-checkbox-x": "*",
-        "ramosisw/yii2-material-dashboard": "dev-master"
+        "ramosisw/yii2-material-dashboard": "dev-master",
+        "2amigos/yii2-ckeditor-widget": "^2.1",
+        "vova07/yii2-imperavi-widget": "~1.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

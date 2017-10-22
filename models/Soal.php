@@ -41,7 +41,7 @@ class Soal extends \yii\db\ActiveRecord
             [['soal'], 'string', 'max' => 100],
             [['timestamp'],'save'],
             [['timestamp'],'string'],
-            [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
+            [['gambar'], 'file','extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 1, 'skipOnEmpty' => true, 'on' => 'update-photo-upload'],
             [['a', 'b', 'c', 'd'], 'string', 'max' => 50],
             [['jawaban'], 'string', 'max' => 1],
         ];

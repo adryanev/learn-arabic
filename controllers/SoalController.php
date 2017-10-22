@@ -70,9 +70,12 @@ class SoalController extends Controller
         $data = Yii::$app->request->post();
         $model->gambar =UploadedFile::getInstance($model,'gambar');
         if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
+        if($model->gambar == NULL) $data['Soal']['gambar'] = null;
 
         if($model->load($data) && $model->save()){
-            $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+            if($model->gambar!=NULL){
+                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+            }
             return $this->redirect(['view', 'id' => $model->idSoal]);
         }
         else {
@@ -91,17 +94,24 @@ class SoalController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->scenario = 'update-photo-upload';
+        $gambarSekarang = $model->gambar;
         $data = Yii::$app->request->post();
-        $model->gambar =UploadedFile::getInstance($model,'gambar');
+
         if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
+        if($model->load($data)){
 
-        if($model->load($data) && $model->save()){
+            $gambar = UploadedFile::getInstance($model,'gambar');
 
-            if($data['Soal']['gambar'] != NULL){
-                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+            if(!empty($gambar) && $gambar->size!=0 ) {
+
+                    $gambar->saveAs(Yii::$app->basePath . '/web/uploads/images/' . $gambar->baseName . '.' . $gambar->extension);
+                    $model->gambar = $gambar->baseName . '.' . $gambar->extension;
             }
-
+            else{
+               $model->gambar = $gambarSekarang;
+            }
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->idSoal]);
 
         } else {
