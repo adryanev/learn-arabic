@@ -19,6 +19,7 @@ class MaterialAsset extends AssetBundle
     public $css = [
         'css/material-dashboard.css',
         'material-design-icons/iconfont/material-icons.css',
+
     ];
 
     public $js = [
@@ -26,7 +27,8 @@ class MaterialAsset extends AssetBundle
         'js/chartist.min.js',
         'js/bootstrap-notify.js',
         'js/material-dashboard.js',
-        'js/superfish.js'
+        'js/superfish.js',
+
     ];
 
     public $depends = [
@@ -35,6 +37,7 @@ class MaterialAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
+
     ];
 
     /**

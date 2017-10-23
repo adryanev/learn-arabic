@@ -30,4 +30,5 @@ class KategoriController extends Controller{
     }
     return $response;
   }
+
 }

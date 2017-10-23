@@ -157,15 +157,18 @@ class MateriDetailController extends Controller
     }
 
     public function actionMateriDetail($idSubMateri){
-        $query = "select materi_detail.idMateriDetail,materi_detail.idSubMateri, materi.namaMateri, kategori.namaKategori, materi_detail.isi, materi_detail.gambar, materi_detail.terjemahan, materi_detail.timestamp
+        $query = "select materi_detail.idMateriDetail as id,materi_detail.idSubMateri, materi.namaMateri, kategori.namaKategori, materi_detail.isi, materi_detail.gambar, materi_detail.terjemahan, materi_detail.timestamp
 from materi_detail 
 INNER join sub_materi on materi_detail.idSubMateri = sub_materi.idSubMateri 
 INNER JOIN materi on sub_materi.idMateri = materi.idMateri 
 inner join kategori on sub_materi.idKategori = kategori.idKategori
 where materi_detail.idSubMateri = ".$idSubMateri;
+
+
         $dataProvider = new SqlDataProvider([
-            'sql' => $query 
-        ]);
+            'sql' => $query,
+            'key' => 'id',
+                    ]);
         
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }

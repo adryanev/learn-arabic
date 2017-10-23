@@ -7,6 +7,8 @@ use app\models\SubMateri;
 use app\models\SubMateriSearch;
 use yii\data\ArrayDataProvider;
 use yii\data\SqlDataProvider;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,6 +32,8 @@ class SubMateriController extends Controller
             ],
         ];
     }
+
+    public function beforeAction($action) { $this->enableCsrfValidation = false; return parent::beforeAction($action); }
 
     /**
      * Lists all SubMateri models.
@@ -67,7 +71,19 @@ class SubMateriController extends Controller
     {
         $model = new SubMateri();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $post = Yii::$app->request->post();
+        if (!empty($post)) {
+            $materiMap = $post['SubMateri']['idMateri'];
+            $kategoriMap = $post['SubMateri']['idKategori'];
+
+            if(!empty($materiMap)&& !empty($kategoriMap)){
+
+
+                $model->idMateri = $materiMap;
+                $model->idKategori = $kategoriMap;
+                $model->save(false);
+            }
+
             return $this->redirect(['view', 'id' => $model->idSubMateri]);
         } else {
             return $this->render('create', [
@@ -126,19 +142,70 @@ class SubMateriController extends Controller
 
     public function actionSubMateri($idMateri){
 
-        $query = "SELECT sub_materi.idSubMateri,sub_materi.idMateri, materi.namaMateri,sub_materi.idKategori, kategori.namaKategori,sub_materi.timestamp FROM sub_materi
+        $query = "SELECT sub_materi.idSubMateri as id, sub_materi.idMateri, materi.namaMateri,sub_materi.idKategori, kategori.namaKategori,sub_materi.timestamp FROM sub_materi
 INNER join materi on sub_materi.idMateri = materi.idMateri
 INNER join kategori on sub_materi.idKategori = kategori.idKategori
 where sub_materi.idMateri = ". $idMateri;
 
-        $dataProvider = new SqlDataProvider(
-            [
-                'sql'=>$query
-            ]
-        );
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query,
+            'key'=>'id',
+        ]);
+
         //$rows = SubMateri::getSubMateriByidMateri($idMateri);
 
 
         return $this->render('index' ,['dataProvider'=>$dataProvider]);
     }
+
+    public function actionKategori(){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['idMateri'])) {
+            $parents = $_POST['idMateri'];
+            if ($parents != null) {
+                $idMateri = $parents[0];
+                $out = self::getKategoryList($idMateri);
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+
+                return ['output'=>$out, 'selected'=>''];
+
+            }
+        }
+       return Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
+    public static function getKategoryList($idMateri){
+
+        $query = "SELECT kategori.idKategori as id, kategori.namaKategori as name FROM sub_materi 
+INNER join materi on sub_materi.idMateri = materi.idMateri 
+INNER join kategori on sub_materi.idKategori = kategori.idKategori 
+where sub_materi.idMateri = ".$idMateri;
+
+        $data = Yii::$app->db->createCommand($query)->queryAll();
+
+            $dataArray = ArrayHelper::toArray($data);
+
+        return $dataArray;
+
+    }
+
+    public function actionIdSubMateri(){
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        $idMateri = $_POST['idMateri'];
+        $idKategori = $_POST['idKategori'];
+
+        $out = SubMateri::getIdSubMateriFromInput($idMateri,$idKategori);
+
+        return $out;
+
+    }
+
 }

@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'rowOptions'=> function($model, $key, $index, $grid){
-                        return ['data-id'=>$model['idSubMateri']];
+                        return ['data-id'=>$model['id']];
             },
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],

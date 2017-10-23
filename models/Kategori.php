@@ -54,4 +54,5 @@ class Kategori extends \yii\db\ActiveRecord
     {
         return $this->hasMany(MateriDetail::className(), ['idKategori' => 'idKategori']);
     }
+
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd2f562f767f054ae95a961f6d43dc26",
+    "content-hash": "8b4b720414aab92436ca5c758f781446",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -1184,7 +1184,7 @@
         },
         {
             "name": "kartik-v/dependent-dropdown",
-            "version": "v1.4.8",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/dependent-dropdown.git",
@@ -6612,7 +6612,8 @@
         "kartik-v/yii2-grid": 20,
         "kartik-v/yii2-mpdf": 20,
         "mootensai/yii2-enhanced-gii": 20,
-        "ramosisw/yii2-material-dashboard": 20
+        "ramosisw/yii2-material-dashboard": 20,
+        "kartik-v/dependent-dropdown": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
