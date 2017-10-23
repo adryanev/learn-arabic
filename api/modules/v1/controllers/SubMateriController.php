@@ -36,20 +36,4 @@ class SubMateriController extends Controller
         }
         return $response;
     }
-    public function actionDepMateri($idMateri){
-
-     $countSubMateri = SubMateri::find()->where(['idMateri'=>$idMateri])->count();
-        $subMateri = SubMateri::find()->where(['idMateri'=>$idMateri])->all();
-
-        if($countSubMateri>0){
-          foreach($subMateri as $sub){
-                $kategori = Kategori::find()->select('namaKategori')->where(['idKategori'=>$sub->idKategori])->all();
-                   echo "<option value = ".$sub->idKategori." >".$kategori."</option>";
-          }
-
-         }
-         else{
-            echo "<option>-</option>";
-         }
-    }
 }

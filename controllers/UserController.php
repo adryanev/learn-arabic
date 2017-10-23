@@ -65,7 +65,9 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->timestamp = date('Y-m-d h:i:s');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idUser]);
         } else {
             return $this->render('create', [
