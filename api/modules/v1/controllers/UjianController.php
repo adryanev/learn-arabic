@@ -55,6 +55,7 @@ class UjianController extends Controller
         $response = null;
 
         if(\Yii::$app->request->isPost){
+            $data = \Yii::$app->request->post();
             $model = new Ujian();
             $model->idUser = $data->idUser;
             $model->tglUjian = date('Y-m-d');
