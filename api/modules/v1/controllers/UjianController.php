@@ -64,6 +64,9 @@ class UjianController extends Controller
             if($model->save()){
                 $response['status'] = 'OK';
             }
+            else{
+                $response['status'] = 'FAILED';
+            }
 
         }
 
