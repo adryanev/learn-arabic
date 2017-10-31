@@ -48,7 +48,7 @@ class UjianController extends Controller
 
         return $response;
     }
-    public function actionAdd($data){
+    public function actionAdd(){
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
@@ -57,15 +57,15 @@ class UjianController extends Controller
         if(\Yii::$app->request->isPost){
             $data = \Yii::$app->request->post();
             $model = new Ujian();
-            $model->idUser = $data->idUser;
-            $model->tglUjian = date('Y-m-d');
-            $model->totalSkor = $data->totalSkor;
+            $model->idUser = $data['idUser'];
+            $model->tanggalUjian = date('Y-m-d');
+            $model->totalSkor = $data['totalSkor'];
 
             if($model->save()){
-                $response['status'] = 'OK';
+                $response = 'OK';
             }
             else{
-                $response['status'] = 'FAILED';
+                $response = 'FAILED';
             }
 
         }
