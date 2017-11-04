@@ -51,19 +51,15 @@ use yii\helpers\Url;
 
             <?= $form->field($model, 'idSubMateri')->textInput(['readonly'=>true]) ?>
 
-        <?= $form->field($model, 'isi')->widget(Redactor::className(),[
-                'settings' => [
-                    'lang' => 'id',
-                    'minHeight'=>'200',
-                    'plugins'=>[
-                        'clips',
-                        'fullscreen',
-                    ]
-                ]
+        <?= $form->field($model, 'isi')->widget(\dosamigos\ckeditor\CKEditor::className(),[
+               'options' => ['rows' => 6],
+               'preset' => 'basic',  'clientOptions' => ['contentsLangDirection'=>'rtl']
+
             ]) ?>
         <?= $form->field($model, 'gambar')->widget(FileInput::className(),[
                 'options'=>['accept'=>'image/*']
             ]) ?>
+           <?= $form->field($model, 'suara')->widget(FileInput::className()) ?>
 
         <?= $form->field($model, 'terjemahan')->widget(Redactor::className(),
                 [

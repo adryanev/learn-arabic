@@ -11,6 +11,7 @@ use Yii;
  * @property integer $idSubMateri
  * @property string $isi
  * @property string $gambar
+ * @property string $suara
  * @property string $terjemahan
  * @property string $timestamp
  *
@@ -36,7 +37,7 @@ class MateriDetail extends \yii\db\ActiveRecord
             [['idSubMateri'], 'integer'],
             [['isi', 'terjemahan'], 'string'],
             [['timestamp','terjemahan'], 'safe'],
-            [['gambar'] ,'file' ,'skipOnEmpty' => TRUE],
+            [['gambar','suara'] ,'file' ,'skipOnEmpty' => TRUE],
             [['idSubMateri'], 'exist', 'skipOnError' => true, 'targetClass' => SubMateri::className(), 'targetAttribute' => ['idSubMateri' => 'idSubMateri']],
         ];
     }
@@ -51,6 +52,7 @@ class MateriDetail extends \yii\db\ActiveRecord
             'idSubMateri' => 'Id Sub Materi',
             'isi' => 'Isi',
             'gambar' => 'Gambar',
+            'suara' => 'Suara',
             'terjemahan' => 'Terjemahan',
             'timestamp' => 'Timestamp',
         ];

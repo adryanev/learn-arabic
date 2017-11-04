@@ -72,6 +72,8 @@ class MateriDetailController extends Controller
 
         $data = Yii::$app->request->post();
         $model->gambar =UploadedFile::getInstance($model,'gambar');
+        $model->suara = UploadedFile::getInstance($model,'suara');
+        if($model->suara != NULL) $data['MateriDetai']['suara'] = $model->suara;
         if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
 
         if($model->load($data)){
@@ -81,8 +83,14 @@ class MateriDetailController extends Controller
             else{
                 $model->gambar = null;
             }
+            if($model->suara!=NULL){
+                $model->suara->saveAs(Yii::$app->basePath.'web/uploads/suara/'. $model->suara->baseName. '.'. $model->suara->extension);
+            }
+            else{
+                $model->suara = null;
+            }
             $model->save();
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+            return $this->redirect(['materi-detail', 'idSubMateri' => $model->idSubMateri]);
         }
         else {
             return $this->render('create', [
@@ -101,13 +109,17 @@ class MateriDetailController extends Controller
     {
         $model = $this->findModel($id);
         $gambarSekarang = $model->gambar;
+        $suaraSekarang = $model->suara;
         $data = Yii::$app->request->post();
 
-        if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
+
+
         if($model->load($data)){
+            if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
+            if($model->suara != NULL) $data['MateriDetail']['suara'] = $model->suara;
 
             $gambar = UploadedFile::getInstance($model,'gambar');
-
+            $suara = UploadedFile::getInstance($model,'suara');
             if(!empty($gambar) && $gambar->size!=0 ) {
 
                 $gambar->saveAs(Yii::$app->basePath . '/web/uploads/images/' . $gambar->baseName . '.' . $gambar->extension);
@@ -116,9 +128,18 @@ class MateriDetailController extends Controller
             else{
                 $model->gambar = $gambarSekarang;
             }
+
+            if(!empty($suara) && $suara->size!=0){
+                $suara->saveAs(Yii::$app->basePath . '/web/uploads/suara/' . $suara->baseName . '.' . $suara->extension);
+                $model->suara = $suara->baseName. '.' . $suara->extension;
+            }
+            else{
+                $model->suara = $suaraSekarang;
+            }
+
             $model->timestamp = date('Y-m-d h:i:s');
             $model->save(false);
-            return $this->redirect(['view', 'id' => $model->idMateriDetail]);
+            return $this->redirect(['materi-detail', 'idSubMateri' => $model->idSubMateri]);
 
         } else {
             return $this->render('update', [
@@ -157,7 +178,7 @@ class MateriDetailController extends Controller
     }
 
     public function actionMateriDetail($idSubMateri){
-        $query = "select materi_detail.idMateriDetail as id,materi_detail.idSubMateri, materi.namaMateri, kategori.namaKategori, materi_detail.isi, materi_detail.gambar, materi_detail.terjemahan, materi_detail.timestamp
+        $query = "select materi_detail.idMateriDetail as id,materi_detail.idSubMateri, materi.namaMateri, kategori.namaKategori, materi_detail.isi, materi_detail.gambar, materi_detail.suara, materi_detail.terjemahan, materi_detail.timestamp
 from materi_detail 
 INNER join sub_materi on materi_detail.idSubMateri = sub_materi.idSubMateri 
 INNER JOIN materi on sub_materi.idMateri = materi.idMateri 
@@ -171,5 +192,13 @@ where materi_detail.idSubMateri = ".$idSubMateri;
                     ]);
         
         return $this->render('index', ['dataProvider' => $dataProvider]);
+    }
+
+    public function actionTestModel($id){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = $this->findModel($id);
+        $response = var_dump($model->load(Yii::$app->request->post()));
+
+       return $response;
     }
 }

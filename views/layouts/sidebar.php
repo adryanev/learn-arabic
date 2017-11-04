@@ -9,7 +9,7 @@ $model = Yii::$app->user->getId();
 $user = \app\models\Admin::findOne(['idAdmin'=>$model]);
 $nama = $user->getNama();
 ?>
-<div class="sidebar" data-color="blue" data-image="../assets/img/sidebar-1.jpg">
+<div class="sidebar" data-color="blue" data-image="assets/img/sidebar-1.jpg">
     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -36,6 +36,7 @@ $nama = $user->getNama();
                     ['label'=>'Soal', 'icon'=>'library_books','url'=>['/soal']],
                     // ['label'=>'Waktu', 'icon'=>'clock-o','url'=>['/waktu']],
                     ['label'=>'Ujian', 'icon'=>'question_answer','url'=>['/ujian']],
+                    ['label'=>'Video','icon'=>'live_tv','url'=>['/video']],
                     ['label'=>'Pengguna', 'icon'=>'group','url'=>['/user']],
                     //['label'=>'Statistik', 'icon'=>'bar-chart','url'=>['/statistik']],
                     //['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

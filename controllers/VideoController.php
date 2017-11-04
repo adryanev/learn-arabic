@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Materi;
-use app\models\MateriSearch;
+use app\models\Video;
+use app\models\VideoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MateriController implements the CRUD actions for Materi model.
+ * VideoController implements the CRUD actions for Video model.
  */
-class MateriController extends Controller
+class VideoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class MateriController extends Controller
     }
 
     /**
-     * Lists all Materi models.
+     * Lists all Video models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MateriSearch();
+        $searchModel = new VideoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class MateriController extends Controller
     }
 
     /**
-     * Displays a single Materi model.
+     * Displays a single Video model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class MateriController extends Controller
     }
 
     /**
-     * Creates a new Materi model.
+     * Creates a new Video model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Materi();
+        $model = new Video();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->idVideo]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class MateriController extends Controller
     }
 
     /**
-     * Updates an existing Materi model.
+     * Updates an existing Video model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -84,10 +84,8 @@ class MateriController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->timestamp = date('Y-m-d h:i:s');
-            $model->save();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idVideo]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -96,7 +94,7 @@ class MateriController extends Controller
     }
 
     /**
-     * Deletes an existing Materi model.
+     * Deletes an existing Video model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -109,18 +107,29 @@ class MateriController extends Controller
     }
 
     /**
-     * Finds the Materi model based on its primary key value.
+     * Finds the Video model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Materi the loaded model
+     * @return Video the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Materi::findOne($id)) !== null) {
+        if (($model = Video::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionYoutubeId(){
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = null;
+        $url = $_POST['url'];
+        $matches = null;
+        preg_matches("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
+        return $matches[1];
+    }
+    public function beforeAction($action) { $this->enableCsrfValidation = false; return parent::beforeAction($action); }
 }

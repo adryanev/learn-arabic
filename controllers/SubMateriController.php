@@ -84,7 +84,7 @@ class SubMateriController extends Controller
                 $model->save(false);
             }
 
-            return $this->redirect(['view', 'id' => $model->idSubMateri]);
+            return $this->redirect(['sub-materi', 'idMateri' => $model->idMateri]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -105,7 +105,7 @@ class SubMateriController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $model->timestamp = date('Y-m-d h:i:s');
             $model->save();
-            return $this->redirect(['view', 'id' => $model->idSubMateri]);
+            return $this->redirect(['sub-materi', 'idMateri' => $model->idMateri]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -200,7 +200,6 @@ where sub_materi.idMateri = ".$idMateri;
     public function actionIdSubMateri(){
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $out = [];
         $idMateri = $_POST['idMateri'];
         $idKategori = $_POST['idKategori'];
 

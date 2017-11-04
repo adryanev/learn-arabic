@@ -12,14 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card">
     <div class="card-header" data-background-color="purple">
-        <h4 class="title">idMateriDetail</h4>
+        <h4 class="title">Materi Detail</h4>
     </div>
     <div class="card-content table-responsive">
         <?= Html::a('Update', ['update', 'id' => $model->idMateriDetail], ['class' => 'btn btn-primary btn-flat']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->idMateriDetail], [
         'class' => 'btn btn-danger btn-flat',
         'data' => [
-        'confirm' => 'Are you sure you want to delete this item?',
+        'confirm' => 'Apakah anda yakin menghapus item ini?',
         'method' => 'post',
         ],
         ]) ?>
@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'idSubMateri',
                 'isi:ntext',
                 'gambar',
+                'suara',
                 'terjemahan:ntext',
                 'timestamp',
             ],

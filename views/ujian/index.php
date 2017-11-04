@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h4 class="title">Ujian</h4>
     </div>
     <div class="card-content table-responsive">
-        <?= Html::a('Create Ujian', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+    <!--    <?= Html::a('Create Ujian', ['create'], ['class' => 'btn btn-success btn-flat']) ?> -->
         <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <?= \fedemotta\datatables\DataTables::widget([
