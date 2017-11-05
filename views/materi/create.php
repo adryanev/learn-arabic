@@ -5,7 +5,6 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Materi */
-
 $this->title = 'Create Materi';
 $this->params['breadcrumbs'][] = ['label' => 'Materi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

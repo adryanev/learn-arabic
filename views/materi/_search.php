@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'namaMateri') ?>
 
-    <?= $form->field($model, 'idKategori') ?>
+    <?= $form->field($model, 'timestamp') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

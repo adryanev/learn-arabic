@@ -3,12 +3,11 @@
 namespace app\models;
 
 use Yii;
-use Yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
+use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "user".
  *
  * @property integer $idUser
  * @property string $username
@@ -19,8 +18,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $password
  * @property string $tanggalLahir
  * @property integer $status
- * @property integer $createdAt
- * @property integer $updatedAt
+ * @property string $createdAt
+ * @property string $updatedAt
  *
  * @property Ujian[] $ujians
  */
@@ -29,19 +28,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     const STATUS_ACTIVE = 10;
     const STATUS_DELETED = 0;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'users';
-    }
-
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
+        return 'user';
     }
 
     /**
@@ -50,8 +43,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username', 'nama', 'email', 'authKey', 'accessToken', 'password', 'tanggalLahir', 'status', 'createdAt', 'updatedAt'], 'required'],
+            [['tanggalLahir', 'createdAt', 'updatedAt'], 'safe'],
+            [['status',], 'integer'],
+            [['username'], 'string', 'max' => 20],
+            [['username','email'],'unique','message' => 'Sudah digunakan.'],
+            [['nama'], 'string', 'max' => 50],
+            [['email'], 'string', 'max' => 80],
+            [['authKey'], 'string', 'max' => 32],
+            [['accessToken'], 'string', 'max' => 255],
+            [['password'], 'string', 'max' => 64],
+            [['tanggalLahir', 'createdAt', 'updatedAt'], 'string','max' => 10],
         ];
     }
 
@@ -86,6 +88,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public static function findByUsername($username){
         return static::findOne(['username'=>$username, 'status' =>self::STATUS_ACTIVE]);
     }
+
     /**
      * Finds an identity by the given ID.
      * @param string|int $id the ID to be looked for
@@ -149,8 +152,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() == $authKey;
-
     }
+
     /**
      * Validates password
      *
@@ -177,10 +180,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey(){
         $this->authKey = Yii::$app->security->generateRandomString();
+
     }
     public function generateAccessToken(){
         $this->accessToken = Yii::$app->security->generateRandomString($length = 255);
     }
-
 
 }

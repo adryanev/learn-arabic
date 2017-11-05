@@ -11,32 +11,40 @@ use fedemotta\datatables\DataTables;
 $this->title = 'Admin';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="admin-index box box-primary">
-    <div class="box-header with-border">
-        <?= Html::a('Create Admin', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
-    </div>
-    <div class="box-body table-responsive">
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= DataTables::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'layout' => "{items}\n{summary}\n{pager}",
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="blue">
+                <h4 class="title">Tabel Admin</h4>
+                <p class="category">Menyimpan data-data admin backend.</p>
+            </div>
+            <div class="card-content table-responsive">
+                <hr>
+                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                <?= DataTables::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'layout' => "{items}\n{summary}\n{pager}",
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
 
-                //'idAdmin',
-                'username',
-                'nama',
-                'email:email',
-                //'password',
-                // 'authKey',
-                // 'accessToken',
-                'status',
-                'createdAt',
-                // 'updatedAt',
+                        //'idAdmin',
+                        'username',
+                        'nama',
+                        'email:email',
+                        //'password',
+                        // 'authKey',
+                        // 'accessToken',
+                        'status',
+                        'createdAt',
+                        // 'updatedAt',
 
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
-        ]); ?>
+                        ['class' => 'yii\grid\ActionColumn','visible' => Yii::$app->user->id,'template' => '{view} {update}'],
+                    ],
+                ]); ?>
+            </div>
+        </div>
+
     </div>
+
 </div>

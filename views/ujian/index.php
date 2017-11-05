@@ -10,24 +10,25 @@ use yii\grid\GridView;
 $this->title = 'Ujian';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ujian-index box box-primary">
-    <div class="box-header with-border">
-        <?= Html::a('Create Ujian', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+<div class="card">
+    <div class="card-header"data-background-color="purple">
+        <h4 class="title">Ujian</h4>
     </div>
-    <div class="box-body table-responsive">
+    <div class="card-content table-responsive">
+    <!--    <?= Html::a('Create Ujian', ['create'], ['class' => 'btn btn-success btn-flat']) ?> -->
+        <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= GridView::widget([
+        <?= \fedemotta\datatables\DataTables::widget([
             'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'idUjian',
-                'idUser',
-                'tglUjian',
+                //'idUjian',
+                'nama',
+                //'idUser',
+                'tanggalUjian',
                 'totalSkor',
-                'idWaktu',
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

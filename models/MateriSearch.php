@@ -18,8 +18,8 @@ class MateriSearch extends Materi
     public function rules()
     {
         return [
-            [['idMateri', 'idKategori'], 'integer'],
-            [['namaMateri'], 'safe'],
+            [['idMateri'], 'integer'],
+            [['namaMateri', 'timestamp'], 'safe'],
         ];
     }
 
@@ -59,7 +59,7 @@ class MateriSearch extends Materi
         // grid filtering conditions
         $query->andFilterWhere([
             'idMateri' => $this->idMateri,
-            'idKategori' => $this->idKategori,
+            'timestamp' => $this->timestamp,
         ]);
 
         $query->andFilterWhere(['like', 'namaMateri', $this->namaMateri]);

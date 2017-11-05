@@ -65,8 +65,15 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idUser]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->password = sha1(sha1($model->password));
+            $model->generateAuthKey();
+            $model->generateAccessToken();
+            $model->status = 10;
+            $model->createdAt = date('Y-m-d');
+            $model->updatedAt = date('Y-m-d');
+            $model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,7 +91,10 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password = sha1(sha1($model->password));
+            $model->updatedAt = date('Y-m-d');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->idUser]);
         } else {
             return $this->render('update', [

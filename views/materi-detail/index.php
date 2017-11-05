@@ -10,23 +10,36 @@ use yii\grid\GridView;
 $this->title = 'Materi Detail';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="materi-detail-index box box-primary">
-    <div class="box-header with-border">
-        <?= Html::a('Create Materi Detail', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+<?php if (Yii::$app->session->hasFlash("succcess")):
+        Yii::$app->session->getFlash('success');
+        endif;
+?>
+
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+        <h4 class="title">Materi Detail</h4>
     </div>
-    <div class="box-body table-responsive">
+
+    <div class="card-content table-responsive">
+        <?= Html::a('Create Materi Detail', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <?= \fedemotta\datatables\DataTables::widget([
             'dataProvider' => $dataProvider,
+            //'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'idMateriDetail',
-                'idMateri',
+                'namaMateri',
+                'namaKategori',
+                //'idMateriDetail',
+               // 'idSubMateri',
                 'isi:ntext',
                 'gambar',
+                'suara',
                 'terjemahan:ntext',
+                // 'timestamp',
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

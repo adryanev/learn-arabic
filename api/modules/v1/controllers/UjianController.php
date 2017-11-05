@@ -25,6 +25,16 @@ class UjianController extends Controller
         return $response;
     }
 
+    public function actionGetById($idUser){
+        \Yii::$app->response->format  = \yii\web\Response::FORMAT_JSON;
+        $response = null;
+        if(\Yii::$app->request->isGet){
+            $response['master'] = Ujian::find()->where(['idUser'=> $idUser])->all();
+        }
+
+        return $response;
+    }
+
     public function actionDetail($idUjian){
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -38,21 +48,24 @@ class UjianController extends Controller
 
         return $response;
     }
-    public function actionAdd($data){
+    public function actionAdd(){
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $response = null;
 
         if(\Yii::$app->request->isPost){
+            $data = \Yii::$app->request->post();
             $model = new Ujian();
-            $model->idUser = $data->idUser;
-            $model->idWaktu = $data->idWaktu;
-            $model->tglUjian = $data->tglUjian;
-            $model->totalSkor = $data->totalSkor;
+            $model->idUser = $data['idUser'];
+            $model->tanggalUjian = date('Y-m-d');
+            $model->totalSkor = $data['totalSkor'];
 
             if($model->save()){
-                $response['status'] = 'OK';
+                $response = 'OK';
+            }
+            else{
+                $response = 'FAILED';
             }
 
         }

@@ -8,9 +8,12 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-form box box-primary">
+<div class="card">
+    <div class="card-header" data-background-color="purple">
+        <h4 class="title">Edit User</h4>
+    </div>
     <?php $form = ActiveForm::begin(); ?>
-    <div class="box-body table-responsive">
+    <div class="card-content table-responsive">
 
         <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
@@ -18,23 +21,19 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
-
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'tanggalLahir')->textInput() ?>
+        <?= $form->field($model, 'tanggalLahir')->widget(\kartik\widgets\DatePicker::className(),[
+                'type' => \kartik\widgets\DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+        ]) ?>
 
-        <?= $form->field($model, 'status')->textInput() ?>
 
-        <?= $form->field($model, 'createdAt')->textInput() ?>
-
-        <?= $form->field($model, 'updatedAt')->textInput() ?>
-
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat col-md-12']) ?>
     </div>
-    <div class="box-footer">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
-    </div>
+
     <?php ActiveForm::end(); ?>
 </div>

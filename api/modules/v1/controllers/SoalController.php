@@ -34,4 +34,14 @@ class SoalController extends Controller
         return $response;
 
     }
+    public function actionRandom(){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+	$model = new Soal();
+  	$response = null;
+	if(\Yii::$app->request->isGet){
+	    $sql= "SELECT * FROM soal ORDER BY RAND() LIMIT 5";
+	    $response['master'] = \Yii::$app->db->createCommand($sql)->queryAll();
+	}
+	return $response;
+    }
 }

@@ -17,13 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idMateriDetail') ?>
 
-    <?= $form->field($model, 'idMateri') ?>
+    <?= $form->field($model, 'idSubMateri') ?>
 
     <?= $form->field($model, 'isi') ?>
 
     <?= $form->field($model, 'gambar') ?>
 
     <?= $form->field($model, 'terjemahan') ?>
+
+    <?php // echo $form->field($model, 'timestamp') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

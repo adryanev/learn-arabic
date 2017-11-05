@@ -10,8 +10,12 @@ $this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="admin-view box box-primary">
-    <div class="box-header">
+<div class="card">
+    <div class="card-header">
+        <h4 class="title"><?php $model->nama?></h4>
+
+    </div>
+    <div class="card-content table-responsive">
         <?= Html::a('Update', ['update', 'id' => $model->idAdmin], ['class' => 'btn btn-primary btn-flat']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->idAdmin], [
             'class' => 'btn btn-danger btn-flat',
@@ -20,8 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </div>
-    <div class="box-body table-responsive no-padding">
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [

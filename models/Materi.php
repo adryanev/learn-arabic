@@ -3,17 +3,15 @@
 namespace app\models;
 
 use Yii;
-use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "materi".
  *
  * @property integer $idMateri
  * @property string $namaMateri
- * @property integer $idKategori
+ * @property string $timestamp
  *
- * @property Kategori $idKategori0
- * @property MateriDetail[] $materiDetails
+ * @property SubMateri[] $subMateris
  */
 class Materi extends \yii\db\ActiveRecord
 {
@@ -32,9 +30,8 @@ class Materi extends \yii\db\ActiveRecord
     {
         return [
             [['namaMateri'], 'required'],
-            [['idKategori'], 'integer'],
-            [['namaMateri'], 'string', 'max' => 100],
-            [['idKategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['idKategori' => 'idKategori']],
+            [['namaMateri'], 'string'],
+            [['timestamp'], 'safe'],
         ];
     }
 
@@ -46,35 +43,15 @@ class Materi extends \yii\db\ActiveRecord
         return [
             'idMateri' => 'Id Materi',
             'namaMateri' => 'Nama Materi',
-            'idKategori' => 'Id Kategori',
+            'timestamp' => 'Timestamp',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdKategori0()
+    public function getSubMateris()
     {
-        return $this->hasOne(Kategori::className(), ['idKategori' => 'idKategori']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMateriDetails()
-    {
-        return $this->hasMany(MateriDetail::className(), ['idMateri' => 'idMateri']);
-    }
-
-    public function getMateriByKategori($idKategori){
-        $query = Materi::find();
-
-        $dataProvider = new ActiveDataProvider([
-           'query'=> $query
-        ]);
-
-        $query->andFilterWhere(['idKategori'=>$idKategori]);
-
-        return $dataProvider;
+        return $this->hasMany(SubMateri::className(), ['idMateri' => 'idMateri']);
     }
 }

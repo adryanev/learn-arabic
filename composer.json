@@ -25,7 +25,12 @@
         "kartik-v/yii2-mpdf": "@dev",
         "mootensai/yii2-enhanced-gii": "dev-master",
         "johnitvn/yii2-ajaxcrud": "*",
-        "fedemotta/yii2-widget-datatables": "*"
+        "fedemotta/yii2-widget-datatables": "*",
+        "kartik-v/yii2-checkbox-x": "*",
+        "ramosisw/yii2-material-dashboard": "dev-master",
+        "2amigos/yii2-ckeditor-widget": "^2.1",
+        "vova07/yii2-imperavi-widget": "~1.2",
+        "kartik-v/dependent-dropdown": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

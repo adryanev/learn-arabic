@@ -8,15 +8,20 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="admin-form box box-primary">
-    <?php $form = ActiveForm::begin(); ?>
-    <div class="box-body table-responsive">
 
-        <?= $form->field($model, 'status')->textInput() ?>
+<div class="card">
+    <div class="card-header" data-background-color="blue">
+        <?php $form = ActiveForm::begin(); ?>
+        <h4 class="title">Edit Admin</h4>
+    </div>
 
+        <div class="card-content table-responsive">
+
+            <?= $form->field($model, 'status')->textInput() ?>
+
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
     </div>
-    <div class="box-footer">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
 </div>
+

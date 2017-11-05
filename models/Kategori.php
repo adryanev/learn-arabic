@@ -9,8 +9,9 @@ use Yii;
  *
  * @property integer $idKategori
  * @property string $namaKategori
+ * @property string $timestamp
  *
- * @property Materi[] $materis
+ * @property MateriDetail[] $materiDetails
  */
 class Kategori extends \yii\db\ActiveRecord
 {
@@ -29,6 +30,7 @@ class Kategori extends \yii\db\ActiveRecord
     {
         return [
             [['namaKategori'], 'required'],
+            [['timestamp'], 'safe'],
             [['namaKategori'], 'string', 'max' => 50],
         ];
     }
@@ -41,14 +43,16 @@ class Kategori extends \yii\db\ActiveRecord
         return [
             'idKategori' => 'Id Kategori',
             'namaKategori' => 'Nama Kategori',
+            'timestamp' => 'Timestamp',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMateris()
+    public function getMateriDetails()
     {
-        return $this->hasMany(Materi::className(), ['idKategori' => 'idKategori']);
+        return $this->hasMany(MateriDetail::className(), ['idKategori' => 'idKategori']);
     }
+
 }

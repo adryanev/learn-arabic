@@ -19,7 +19,7 @@ class SoalSearch extends Soal
     {
         return [
             [['idSoal'], 'integer'],
-            [['soal', 'a', 'b', 'c', 'd', 'jawaban'], 'safe'],
+            [['gambar', 'soal', 'a', 'b', 'c', 'd', 'jawaban', 'timestamp'], 'safe'],
         ];
     }
 
@@ -59,9 +59,11 @@ class SoalSearch extends Soal
         // grid filtering conditions
         $query->andFilterWhere([
             'idSoal' => $this->idSoal,
+            'timestamp' => $this->timestamp,
         ]);
 
-        $query->andFilterWhere(['like', 'soal', $this->soal])
+        $query->andFilterWhere(['like', 'gambar', $this->gambar])
+            ->andFilterWhere(['like', 'soal', $this->soal])
             ->andFilterWhere(['like', 'a', $this->a])
             ->andFilterWhere(['like', 'b', $this->b])
             ->andFilterWhere(['like', 'c', $this->c])

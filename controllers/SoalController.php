@@ -8,6 +8,7 @@ use app\models\SoalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * SoalController implements the CRUD actions for Soal model.
@@ -65,9 +66,19 @@ class SoalController extends Controller
     {
         $model = new Soal();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idSoal]);
-        } else {
+
+        $data = Yii::$app->request->post();
+        $model->gambar =UploadedFile::getInstance($model,'gambar');
+        if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
+        if($model->gambar == NULL) $data['Soal']['gambar'] = null;
+
+        if($model->load($data) && $model->save()){
+            if($model->gambar!=NULL){
+                $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
+            }
+            return $this->redirect(['index']);
+        }
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -83,9 +94,27 @@ class SoalController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update-photo-upload';
+        $gambarSekarang = $model->gambar;
+        $data = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($model->gambar != NULL) $data['Soal']['gambar'] = $model->gambar;
+        if($model->load($data)){
+
+            $gambar = UploadedFile::getInstance($model,'gambar');
+
+            if(!empty($gambar) && $gambar->size!=0 ) {
+
+                    $gambar->saveAs(Yii::$app->basePath . '/web/uploads/images/' . $gambar->baseName . '.' . $gambar->extension);
+                    $model->gambar = $gambar->baseName . '.' . $gambar->extension;
+            }
+            else{
+               $model->gambar = $gambarSekarang;
+            }
+            $model->timestamp = date('Y-m-d h:i:s');
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->idSoal]);
+
         } else {
             return $this->render('update', [
                 'model' => $model,

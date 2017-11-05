@@ -28,7 +28,7 @@ $nama = $user->getNama();
                    // ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label'=>'Beranda', 'icon'=>'home','url'=>['/site']],
                     ['label'=>'Akun Admin', 'icon'=>'user','url'=>['/admin']],
-                    ['label'=>'Materi', 'icon'=>'book','url'=>['/kategori']],
+                    ['label'=>'Materi', 'icon'=>'book','url'=>['/materi']],
                     ['label'=>'Soal', 'icon'=>'question-circle-o','url'=>['/soal']],
                    // ['label'=>'Waktu', 'icon'=>'clock-o','url'=>['/waktu']],
                     ['label'=>'Ujian', 'icon'=>'question-circle','url'=>['/ujian']],

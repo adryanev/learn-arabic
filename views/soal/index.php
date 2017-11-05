@@ -10,26 +10,31 @@ use yii\grid\GridView;
 $this->title = 'Soal';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="soal-index box box-primary">
-    <div class="box-header with-border">
-        <?= Html::a('Create Soal', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+<div class="card">
+    <div class="card-header"data-background-color="purple">
+        <h4 class="title">Soal</h4>
     </div>
-    <div class="box-body table-responsive">
+    <div class="card-content table-responsive">
+        <?= Html::a('Create Soal', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <?= GridView::widget([
+        <?= \fedemotta\datatables\DataTables::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'idSoal',
+                //'idSoal',
+
                 'soal',
                 'a',
                 'b',
-                'c',
-                // 'd',
-                // 'jawaban',
+                 'c',
+                 'd',
+                 'jawaban',
+                 'gambar',
+                 'timestamp',
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],
