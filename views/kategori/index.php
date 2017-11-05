@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\KategoriSearch */
@@ -11,51 +10,27 @@ use yii\helpers\Url;
 $this->title = 'Kategori';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="kategori-index box box-primary">
-    <div class="box-header with-border">
+<div class="card">
+    <div class="card-header"data-background-color="purple">
+        <h4 class="title">Kategori</h4>
+    </div>
+    <div class="card-content table-responsive">
         <?= Html::a('Create Kategori', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
-    </div>
-    <div class="box-body table-responsive">
+        <hr>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-        <table class="table table-hover table-bordered dt-responsive nowrap" id="tabelKategori" cellspacing="0" width="100%">
+        <?= \fedemotta\datatables\DataTables::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'layout' => "{items}\n{summary}\n{pager}",
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            <thead>
-                <tr>
-                    <th>
-                        Id Kategori
-                    </th>
-                    <th>Nama Kategori</th>
-                    <th class="action-column">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-            $idMateri = $dataProvider['idMateri'];
+                //'idKategori',
+                'namaKategori',
+                'timestamp',
 
-
-
-                   foreach ($dataProvider['kategori'] as $data){
-                      $idKategori = $data['idKategori'];
-                      $namaKategori = $data['namaKategori'];
-
-
-                        echo "<tr>";
-                        echo "<td><a href='/learn-arabic/web/materi-detail/detail?idMateri=$idMateri&idKategori=$idKategori'>$idKategori</a></td>";
-                        echo "<td><a href='/learn-arabic/web/materi-detail/detail?idMateri=$idMateri&idKategori=$idKategori'>$namaKategori</a></td>";
-                        echo "<td>
-                                <a href='/learn-arabic/web/kategori/$idKategori' title=\"View\" aria-label=\"View\" data-pjax=\"0\">
-                                <span class=\"glyphicon glyphicon-eye-open\"></span></a> 
-                                <a href='/learn-arabic/web/kategori/update/$idKategori' title=\"Update\" aria-label=\"Update\" data-pjax=\"0\">
-                                <span class=\"glyphicon glyphicon-pencil\"></span></a> 
-                                <a href='/learn-arabic/web/kategori/delete/$idKategori'title=\"Delete\" aria-label=\"Delete\" data-pjax=\"0\" data-confirm=\"Are you sure you want to delete this item?\" data-method=\"post\">
-                                <span class=\"glyphicon glyphicon-trash\"></span></a>
-                                </td>";
-                        echo "</tr>";
-
-                    }
-
-                ?>
-            </tbody>
-        </table>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
     </div>
-</div>
+

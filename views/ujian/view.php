@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card">
     <div class="card-header" data-background-color="purple">
-        <h4 class="title">idUjian</h4>
+        <h4 class="title">Ujian</h4>
     </div>
     <div class="card-content table-responsive">
         <?= Html::a('Update', ['update', 'id' => $model->idUjian], ['class' => 'btn btn-primary btn-flat']) ?>

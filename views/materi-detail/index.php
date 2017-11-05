@@ -10,10 +10,16 @@ use yii\grid\GridView;
 $this->title = 'Materi Detail';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php if (Yii::$app->session->hasFlash("succcess")):
+        Yii::$app->session->getFlash('success');
+        endif;
+?>
+
 <div class="card">
     <div class="card-header" data-background-color="purple">
         <h4 class="title">Materi Detail</h4>
     </div>
+
     <div class="card-content table-responsive">
         <?= Html::a('Create Materi Detail', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
         <hr>

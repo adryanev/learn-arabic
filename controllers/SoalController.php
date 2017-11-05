@@ -76,7 +76,7 @@ class SoalController extends Controller
             if($model->gambar!=NULL){
                 $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
             }
-            return $this->redirect(['view', 'id' => $model->idSoal]);
+            return $this->redirect(['index']);
         }
         else {
             return $this->render('create', [

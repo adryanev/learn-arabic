@@ -19,7 +19,7 @@ class KategoriSearch extends Kategori
     {
         return [
             [['idKategori'], 'integer'],
-            [['namaKategori'], 'safe'],
+            [['namaKategori', 'timestamp'], 'safe'],
         ];
     }
 
@@ -59,6 +59,7 @@ class KategoriSearch extends Kategori
         // grid filtering conditions
         $query->andFilterWhere([
             'idKategori' => $this->idKategori,
+            'timestamp' => $this->timestamp,
         ]);
 
         $query->andFilterWhere(['like', 'namaKategori', $this->namaKategori]);

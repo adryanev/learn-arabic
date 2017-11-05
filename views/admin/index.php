@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'createdAt',
                         // 'updatedAt',
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        ['class' => 'yii\grid\ActionColumn','visible' => Yii::$app->user->id,'template' => '{view} {update}'],
                     ],
                 ]); ?>
             </div>

@@ -23,9 +23,14 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'tanggalLahir')->textInput() ?>
+        <?= $form->field($model, 'tanggalLahir')->widget(\kartik\widgets\DatePicker::className(),[
+                'type' => \kartik\widgets\DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+        ]) ?>
 
-        <?= $form->field($model, 'status')->textInput() ?>
 
         <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-flat col-md-12']) ?>
     </div>

@@ -20,13 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <?= \fedemotta\datatables\DataTables::widget([
             'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'idUjian',
-                'idUser',
+                //'idUjian',
+                'nama',
+                //'idUser',
                 'tanggalUjian',
                 'totalSkor',
 

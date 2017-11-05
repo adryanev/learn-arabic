@@ -32,14 +32,14 @@ $nama = $user->getNama();
                     // ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label'=>'Beranda', 'icon'=>'home','url'=>['/site']],
                     ['label'=>'Akun Admin', 'icon'=>'person','url'=>['/admin']],
+                    ['label'=>'Kategori', 'icon'=>'view_list','url'=>['/kategori']],
                     ['label'=>'Materi', 'icon'=>'book','url'=>['/materi']],
                     ['label'=>'Soal', 'icon'=>'library_books','url'=>['/soal']],
-                    // ['label'=>'Waktu', 'icon'=>'clock-o','url'=>['/waktu']],
+
                     ['label'=>'Ujian', 'icon'=>'question_answer','url'=>['/ujian']],
                     ['label'=>'Video','icon'=>'live_tv','url'=>['/video']],
                     ['label'=>'Pengguna', 'icon'=>'group','url'=>['/user']],
-                    //['label'=>'Statistik', 'icon'=>'bar-chart','url'=>['/statistik']],
-                    //['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+
 
                 ],
             ]

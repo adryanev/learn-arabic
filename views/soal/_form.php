@@ -22,15 +22,10 @@ use kartik\file\FileInput;
             <?= $form->field($model, 'gambar')->widget(FileInput::className(),[
                 'options'=>['accept'=>'image/*'],
             ]) ?>
-            <?= $form->field($model, 'soal')->widget(Redactor::className(),[
-                'settings' => [
-                    'lang' => 'id',
-                    'minHeight'=>'200',
-                    'plugins'=>[
-                        'clips',
-                        'fullscreen',
-                    ]
-                ]
+            <?= $form->field($model, 'soal')->widget(\dosamigos\ckeditor\CKEditor::className(),[
+                'options' => ['rows' => 6],
+                'preset' => 'basic',  'clientOptions' => ['contentsLangDirection'=>'rtl']
+
             ]) ?>
         <?= $form->field($model, 'a')->textInput(['maxlength' => true]) ?>
 

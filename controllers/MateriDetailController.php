@@ -73,10 +73,12 @@ class MateriDetailController extends Controller
         $data = Yii::$app->request->post();
         $model->gambar =UploadedFile::getInstance($model,'gambar');
         $model->suara = UploadedFile::getInstance($model,'suara');
-        if($model->suara != NULL) $data['MateriDetai']['suara'] = $model->suara;
+
+        if($model->suara != NULL) $data['MateriDetail']['suara'] = $model->suara;
         if($model->gambar != NULL) $data['MateriDetail']['gambar'] = $model->gambar;
 
         if($model->load($data)){
+
             if($model->gambar!=NULL){
                 $model->gambar->saveAs(Yii::$app->basePath.'/web/uploads/images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
             }
@@ -84,12 +86,13 @@ class MateriDetailController extends Controller
                 $model->gambar = null;
             }
             if($model->suara!=NULL){
-                $model->suara->saveAs(Yii::$app->basePath.'web/uploads/suara/'. $model->suara->baseName. '.'. $model->suara->extension);
+                $model->suara->saveAs(Yii::$app->basePath.'/web/uploads/suara/'. $model->suara->baseName. '.'. $model->suara->extension);
             }
             else{
                 $model->suara = null;
             }
             $model->save();
+            Yii::$app->session->set("success","Berhasil menambahkan Materi Detail");
             return $this->redirect(['materi-detail', 'idSubMateri' => $model->idSubMateri]);
         }
         else {
@@ -139,6 +142,7 @@ class MateriDetailController extends Controller
 
             $model->timestamp = date('Y-m-d h:i:s');
             $model->save(false);
+            Yii::$app->session->set("success","Berhasil memperbarui Materi Detail");
             return $this->redirect(['materi-detail', 'idSubMateri' => $model->idSubMateri]);
 
         } else {

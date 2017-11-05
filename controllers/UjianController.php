@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use app\models\Ujian;
 use app\models\UjianSearch;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,13 +37,20 @@ class UjianController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UjianSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = "SELECT ujian.idUjian as id, 
+        `user`.`nama`, 
+        ujian.tanggalUjian, 
+        ujian.totalSkor 
+        FROM ujian 
+        INNER JOIN `user` ON ujian.idUser = `user`.`idUser`";
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query,
+            'key' => 'id',
         ]);
+
+        return $this->render('index', ['dataProvider' => $dataProvider, ]);
+
     }
 
     /**

@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <p class="category">Menyimpan data-data User Android.</p>
             </div>
             <div class="card-content table-responsive">
+                <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
                 <hr>
                 <?= \fedemotta\datatables\DataTables::widget([
                     'dataProvider' => $dataProvider,

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="card">
     <div class="card-header">
-        <h4 class="title">Detail Admin</h4>
+        <h4 class="title"><?php $model->nama?></h4>
 
     </div>
     <div class="card-content table-responsive">

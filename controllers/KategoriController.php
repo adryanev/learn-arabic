@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\Materi;
 use Yii;
 use app\models\Kategori;
 use app\models\KategoriSearch;
@@ -37,9 +36,12 @@ class KategoriController extends Controller
     public function actionIndex()
     {
         $searchModel = new KategoriSearch();
-        $dataProvider = Kategori::find()->all();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index',['dataProvider'=>$dataProvider]);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -82,9 +84,7 @@ class KategoriController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->timestamp = date('Y-m-d h:i:s');
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idKategori]);
         } else {
             return $this->render('update', [
@@ -120,16 +120,5 @@ class KategoriController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionKategoriMateri($idMateri){
-
-        $data = Materi::findOne(['idMateri'=>$idMateri]);
-        $dataNama = Yii::$app->db->createCommand("SELECT * from kategori")->queryAll();
-
-        $dataKategori['idMateri'] = $data->idMateri;
-        $dataKategori['kategori'] = $dataNama;
-
-        return $this->render('index',['dataProvider'=>$dataKategori]);
     }
 }
