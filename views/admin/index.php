@@ -35,11 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'password',
                         // 'authKey',
                         // 'accessToken',
-                        'status',
                         'createdAt',
                         // 'updatedAt',
-
-                        ['class' => 'yii\grid\ActionColumn','visible' => Yii::$app->user->id,'template' => '{view} {update}'],
                     ],
                 ]); ?>
             </div>

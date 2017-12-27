@@ -37,10 +37,7 @@ class RegisterController extends Controller
             if($user->save()){
                 $response['status'] = 'success';
             }else{
-
-                $error = var_dump($user->save());
                 $response['status'] = 'failed';
-                $response['error'] = $error;
             }
         }
 

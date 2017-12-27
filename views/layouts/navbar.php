@@ -36,6 +36,13 @@ $nama = $user->getNama();
                         <ul class="dropdown-menu">
                             <li>
                                 <?= Html::a(
+                                    'Pengaturan Akun',
+                                    ['/admin/update/'.Yii::$app->user->getId()],
+                                    ['data-method' => 'post']
+                                ) ?>
+                            </li>
+                            <li>
+                                <?= Html::a(
                                     'Sign out',
                                     ['/site/logout'],
                                     ['data-method' => 'post']
